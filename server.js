@@ -1,10 +1,12 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const setRoutes = require('./routes');
 
 const app = express();
-(async () => {
-    await connectDB();
-})();
+
+connectDB();
+app.use(express.json({ extended: false }));
+setRoutes(app);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server started`));
