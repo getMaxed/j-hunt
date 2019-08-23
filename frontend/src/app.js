@@ -1,4 +1,6 @@
 import React from 'react';
+import React, { useState, useRef } from 'react';
+import Form from './components/form';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import store from './store';
@@ -6,18 +8,24 @@ import store from './store';
 let App = ({ isAuthenticated }) => {
     return (
         <>
-            {isAuthenticated ? (
+            {!isAuthenticated ? (
                 <>
-                    <p>...AUTHED...</p>
+                    <Form />
                 </>
             ) : (
                 <>
-                    <p>...NOT AUTHED...</p>
+                    <p>...AUTHED...</p>
                 </>
             )}
         </>
     );
 };
+
+/*
+|--------------------------------------------------------------------------
+| CONNECT APP TO STORE
+|--------------------------------------------------------------------------
+*/
 
 const mapStateToProps = state => ({
     isAuthenticated: state.mode.isAuthenticated

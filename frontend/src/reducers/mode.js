@@ -1,7 +1,8 @@
 import { TOGGLE_IS_AUTHENTICATED } from '../actions';
 
 const initialState = {
-    isAuthenticated: false
+    isAuthenticated: false,
+    isLoading: true
 };
 
 export default (state = initialState, action) => {

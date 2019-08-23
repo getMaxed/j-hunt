@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const User = require('../../models/User');
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
@@ -12,7 +13,7 @@ router.post(
         check(`username`, `username is required`)
             .not()
             .isEmpty(),
-        check(`password`, `password must have minimum 3 characters`).isLength({
+        check(`password`, `password too short`).isLength({
             min: 3
         })
     ],
