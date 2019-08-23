@@ -1,5 +1,4 @@
 import React from 'react';
-import React, { useState, useRef } from 'react';
 import Form from './components/form';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';

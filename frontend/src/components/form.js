@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { login, register } from '../actions/auth';
+import { connect } from 'react-redux';
 
-export default function Form() {
-    const [isLoggingIn, setIsLoggingIn] = useState(false);
-    const [inputData, setInputData] = useState({
+function Form({ login, register }) {
+    const emptyInput = {
         username: '',
         password: '',
         password2: ''
-    });
+    };
+    const [isLoggingIn, setIsLoggingIn] = useState(true);
+    const [inputData, setInputData] = useState(emptyInput);
     const { username, password, password2 } = inputData;
     const submitBtnValue = isLoggingIn ? `Log In` : `Sign Up`;
 
@@ -16,13 +19,21 @@ export default function Form() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(username, password, password2);
+        isLoggingIn
+            ? login(username, password)
+            : register(username, password, password2);
+        setInputData(emptyInput);
     }
 
     return (
         <>
-            <a onClick={setIsLoggingIn(true)}>Log In</a>
-            <a onClick={setIsLoggingIn(false)}>Sign Up</a>
+            <a href=" #" onClick={() => setIsLoggingIn(true)}>
+                Log In
+            </a>
+            |||
+            <a href=" #" onClick={() => setIsLoggingIn(false)}>
+                Sign Up
+            </a>
             <form onSubmit={e => handleSubmit(e)}>
                 <input
                     type="text"
@@ -38,7 +49,7 @@ export default function Form() {
                     onChange={e => handleInputChange(e)}
                 />{' '}
                 <br />
-                {isLoggingIn && (
+                {!isLoggingIn && (
                     <input
                         type="text"
                         name="password2"
@@ -52,3 +63,8 @@ export default function Form() {
         </>
     );
 }
+
+export default connect(
+    null,
+    { login, register }
+)(Form);

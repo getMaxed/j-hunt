@@ -10,19 +10,23 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case REGISTER_SUCCESS:
-            localStorage.setItem(`token`, payload);
-            return {
-                ...state,
-                token: payload,
-                isAuthenticated: true
-            };
+            console.log(`reducer: register success`);
+            return state;
+        // localStorage.setItem(`token`, payload);
+        // return {
+        //     ...state,
+        //     token: payload,
+        //     isAuthenticated: true
+        // };
         case REGISTER_FAILURE:
-            localStorage.removeItem(`token`);
-            return {
-                ...state,
-                token: null,
-                isAuthenticated: false
-            };
+            console.log(`reducer: register success`);
+            return state;
+        // localStorage.removeItem(`token`);
+        // return {
+        //     ...state,
+        //     token: null,
+        //     isAuthenticated: false
+        // };
         default:
             return state;
     }
