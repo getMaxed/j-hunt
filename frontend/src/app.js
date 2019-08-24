@@ -1,19 +1,25 @@
 import React from 'react';
 import Form from './components/form';
+import Alert from './components/alert';
+import Logout from './components/logout';
+import InqWrapper from './components/inqWrapper';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import store from './store';
 
-let App = ({ isAuthenticated }) => {
+let App = ({ isAuthenticated, isAlert }) => {
     return (
         <>
             {!isAuthenticated ? (
                 <>
+                    {isAlert && <Alert />}
                     <Form />
                 </>
             ) : (
                 <>
-                    <p>...AUTHED...</p>
+                    {isAlert && <Alert />}
+                    <Logout />
+                    <InqWrapper />
                 </>
             )}
         </>
@@ -27,7 +33,8 @@ let App = ({ isAuthenticated }) => {
 */
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.mode.isAuthenticated
+    isAuthenticated: state.mode.isAuthenticated,
+    isAlert: state.alert.type
 });
 
 App = connect(mapStateToProps)(App);
