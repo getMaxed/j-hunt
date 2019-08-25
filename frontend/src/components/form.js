@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { login, register } from '../actions/auth';
+import { setAlert } from '../actions/alert';
 import { connect } from 'react-redux';
 
-function Form({ login, register }) {
+const Form = ({ login, register, setAlert }) => {
     const emptyInput = {
         username: '',
         password: '',
@@ -21,17 +22,24 @@ function Form({ login, register }) {
         e.preventDefault();
         isLoggingIn
             ? login(username, password)
-            : register(username, password, password2);
+            : password !== password2
+            ? setAlert(`failure`, `passwords don't match`)
+            : register(username, password);
         setInputData(emptyInput);
+    }
+
+    function handlePageChange(e, isLoggingIn) {
+        e.preventDefault();
+        setIsLoggingIn(isLoggingIn);
     }
 
     return (
         <>
-            <a href=" #" onClick={() => setIsLoggingIn(true)}>
+            <a href="" onClick={e => handlePageChange(e, true)}>
                 Log In
             </a>
             |||
-            <a href=" #" onClick={() => setIsLoggingIn(false)}>
+            <a href="" onClick={e => handlePageChange(e, false)}>
                 Sign Up
             </a>
             <form onSubmit={e => handleSubmit(e)}>
@@ -62,9 +70,9 @@ function Form({ login, register }) {
             </form>
         </>
     );
-}
+};
 
 export default connect(
     null,
-    { login, register }
+    { login, register, setAlert }
 )(Form);

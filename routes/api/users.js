@@ -13,9 +13,10 @@ router.post(
         check(`username`, `username is required`)
             .not()
             .isEmpty(),
-        check(`password`, `password too short`).isLength({
-            min: 3
-        })
+        check(
+            `password`,
+            `password is required with minimum 3 characters`
+        ).isLength({ min: 3 })
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -30,7 +31,7 @@ router.post(
             if (user) {
                 return res
                     .status(400)
-                    .json({ errors: [{ msg: `User already exists` }] });
+                    .json({ errors: [{ msg: `user already exists` }] });
             }
 
             user = new User({
@@ -41,8 +42,6 @@ router.post(
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
             await user.save();
-
-            // res.send(`user registered`);
 
             const payload = {
                 user: {

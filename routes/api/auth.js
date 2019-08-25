@@ -20,10 +20,10 @@ router.get('/', auth, async (req, res) => {
 router.post(
     `/`,
     [
-        check(`username`, `username is required`)
+        check(`username`, `enter username`)
             .not()
             .isEmpty(),
-        check(`password`, `password is required`).exists()
+        check(`password`, `enter password`).exists()
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -35,10 +35,11 @@ router.post(
 
         try {
             let user = await User.findOne({ username });
+
             if (!user) {
                 return res
                     .status(400)
-                    .json({ errors: [{ msg: `Invalid credentials` }] });
+                    .json({ errors: [{ msg: `invalid credentials` }] });
             }
 
             const isMatch = await bcrypt.compare(password, user.password);
@@ -46,7 +47,7 @@ router.post(
             if (!isMatch) {
                 return res
                     .status(400)
-                    .json({ errors: [{ msg: `Invalid credentials` }] });
+                    .json({ errors: [{ msg: `invalid credentials` }] });
             }
 
             const payload = {

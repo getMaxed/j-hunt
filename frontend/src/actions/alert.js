@@ -9,7 +9,7 @@ export const setAlert = (type, msg) => async (dispatch, getState) => {
     }
     const timeoutId = setTimeout(() => {
         dispatch({ type: CLEAR_ALERT });
-    }, 2000);
+    }, 2750);
     dispatch({
         type: SET_ALERT,
         payload: { msg, type, timeoutId }

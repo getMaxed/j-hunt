@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { logout } from '../actions/auth';
 
-export default function Logout() {
+const Logout = ({ logout }) => {
     return (
         <svg
+            onClick={() => logout()}
             version="1.1"
             id="Capa_1"
             xmlns="http://www.w3.org/2000/svg"
@@ -36,4 +39,9 @@ export default function Logout() {
             </g>
         </svg>
     );
-}
+};
+
+export default connect(
+    null,
+    { logout }
+)(Logout);

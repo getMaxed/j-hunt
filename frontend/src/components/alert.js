@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { login, register } from '../actions/auth';
 
-function Alert({ type, msg }) {
+const Alert = ({ type, msg }) => {
     const color = type => {
         if (type === `success`) {
             return `green`;
         }
-        if (type === `error`) {
+        if (type === `failure`) {
             return `red`;
         }
         if (type === `info`) {
-            return `orange`;
+            return `grey`;
         }
     };
     return <div style={{ color: color(type) }}>{msg}</div>;
-}
+};
 
 const mapStateToProps = state => ({
     type: state.alert.type,

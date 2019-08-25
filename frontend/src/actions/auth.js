@@ -1,51 +1,74 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { REG_SUCCESS, REG_FAILURE } from './index';
+import {
+    REG_SUCCESS,
+    REG_FAILURE,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
+    LOGOUT
+} from './index';
 
-const config = {
+const httpConfig = {
     headers: {
         'Content-type': `application/json`
     }
 };
-const loginUrl = `api/users`;
-const registerUrl = `api/auth`;
+const loginUrl = `http://localhost:5000/api/auth`;
+const registerUrl = `http://localhost:5000/api/users`;
+
+const errorMsg = errors =>
+    errors.reduce(
+        (acc, curr, idx) =>
+            idx === 0 ? acc + curr.msg : acc + ` and ` + curr.msg,
+        ''
+    );
 
 export const login = (username, password) => async dispatch => {
+    console.log('asdfasdf');
     const body = JSON.stringify({ username, password });
     try {
-        // const res = await axios.post(loginUrl, body, config);
-        // dispatch({
-        //     type: REG_SUCCESS,
-        //     payload: res.data.token
-        // })
-        console.log(body);
+        const res = await axios.post(loginUrl, body, httpConfig);
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: res.data.token
+        });
         dispatch(setAlert(`success`, `user logged in`));
     } catch (err) {
-        // const errors = err.response.data.errors
-        // dispatch({
-        //     type: REG_FAILURE
-        // })
-        console.error(err);
-        dispatch(setAlert(`failure`, `user logged in`));
+        dispatch({
+            type: LOGIN_FAILURE
+        });
+        const errors = err.response.data.errors;
+        console.log(errors);
+        if (errors) {
+            dispatch(setAlert(`failure`, errorMsg(errors)));
+        }
     }
 };
 
-export const register = (username, password, password2) => async dispatch => {
-    const body = JSON.stringify({ username, password, password2 });
+export const register = (username, password) => async dispatch => {
+    const body = JSON.stringify({ username, password });
     try {
-        // const res = await axios.post(loginUrl, body, config);
-        console.log(body);
+        const res = await axios.post(registerUrl, body, httpConfig);
+        dispatch({
+            type: REG_SUCCESS,
+            payload: res.data.token
+        });
         dispatch(setAlert(`success`, `user registered`));
     } catch (err) {
-        // const errors = err.response.data.errors
-        // if (errors) {
-        //     const errorMsg = errors.reduce((acc, curr, idx) => idx === 0 ? acc + curr.msg : curr.msg + ` and ` + curr.msg, '');
-        //     dispatch(setAlert(`failure`, errorMsg))
-        // }
-        // dispatch({
-        //     type: REG_FAILURE
-        // })
-        console.error(err);
-        dispatch(setAlert(`failure`, `user logged in`));
+        dispatch({
+            type: REG_FAILURE
+        });
+        const errors = err.response.data.errors;
+        console.log(errors);
+        if (errors) {
+            dispatch(setAlert(`failure`, errorMsg(errors)));
+        }
     }
+};
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
+    dispatch(setAlert(`info`, `user logged out`));
 };

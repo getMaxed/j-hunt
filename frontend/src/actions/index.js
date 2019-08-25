@@ -1,5 +1,8 @@
 export const REG_SUCCESS = `REG_SUCCESS`;
 export const REG_FAILURE = `REG_FAILURE`;
+export const LOGIN_SUCCESS = `LOGIN_SUCCESS`;
+export const LOGIN_FAILURE = `LOGIN_FAILURE`;
+export const LOGOUT = `LOGOUT`;
 export const SET_ALERT = `SET_ALERT`;
 export const CLEAR_ALERT = `CLEAR_ALERT`;
 export const GET_INQ = `GET_INQ`;
