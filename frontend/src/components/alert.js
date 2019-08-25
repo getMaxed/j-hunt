@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { login, register } from '../actions/auth';
 import { connect } from 'react-redux';
+import { login, register } from '../actions/auth';
 
 function Alert({ type, msg }) {
     const color = type => {

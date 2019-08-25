@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { REGISTER_SUCCESS, REGISTER_FAILURE } from './index';
+import { REG_SUCCESS, REG_FAILURE } from './index';
 
 const config = {
     headers: {
@@ -15,7 +15,7 @@ export const login = (username, password) => async dispatch => {
     try {
         // const res = await axios.post(loginUrl, body, config);
         // dispatch({
-        //     type: REGISTER_SUCCESS,
+        //     type: REG_SUCCESS,
         //     payload: res.data.token
         // })
         console.log(body);
@@ -23,7 +23,7 @@ export const login = (username, password) => async dispatch => {
     } catch (err) {
         // const errors = err.response.data.errors
         // dispatch({
-        //     type: REGISTER_FAILURE
+        //     type: REG_FAILURE
         // })
         console.error(err);
         dispatch(setAlert(`failure`, `user logged in`));
@@ -43,7 +43,7 @@ export const register = (username, password, password2) => async dispatch => {
         //     dispatch(setAlert(`failure`, errorMsg))
         // }
         // dispatch({
-        //     type: REGISTER_FAILURE
+        //     type: REG_FAILURE
         // })
         console.error(err);
         dispatch(setAlert(`failure`, `user logged in`));

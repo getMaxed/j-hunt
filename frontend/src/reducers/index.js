@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
-import mode from './mode';
+import modal from './modal';
 import auth from './auth';
 import alert from './alert';
+import inquiry from './inquiry';
 
 export default combineReducers({
-    mode,
+    modal,
     auth,
-    alert
+    alert,
+    inquiry
 });

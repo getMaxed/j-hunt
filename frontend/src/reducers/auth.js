@@ -1,15 +1,15 @@
-import { REGISTER_FAILURE, REGISTER_SUCCESS } from '../actions';
+import { REG_FAILURE, REG_SUCCESS } from '../actions';
 
 const initialState = {
-    token: localStorage.getItem(`token`),
-    isAuthenticated: null
+    isAuthenticated: null,
+    token: localStorage.getItem(`token`)
 };
 
 export default (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case REGISTER_SUCCESS:
+        case REG_SUCCESS:
             console.log(`reducer: register success`);
             return state;
         // localStorage.setItem(`token`, payload);
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
         //     token: payload,
         //     isAuthenticated: true
         // };
-        case REGISTER_FAILURE:
+        case REG_FAILURE:
             console.log(`reducer: register success`);
             return state;
         // localStorage.removeItem(`token`);

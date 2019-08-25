@@ -1,26 +1,33 @@
 import React from 'react';
-import Form from './components/form';
-import Alert from './components/alert';
-import Logout from './components/logout';
-import InqWrapper from './components/inqWrapper';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import store from './store';
+import Form from './components/form';
+import Alert from './components/alert';
+import Logout from './components/logout';
+import Modal from './components/modal';
+import InqWrapper from './components/inqWrapper';
 
-let App = ({ isAuthenticated, isAlert }) => {
+let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
     return (
         <>
-            {!isAuthenticated ? (
+            {!isModalOpen ? (
                 <>
-                    {isAlert && <Alert />}
-                    <Form />
+                    {isAuthenticated ? (
+                        <>
+                            {isAlert && <Alert />}
+                            <Logout />
+                            <InqWrapper />
+                        </>
+                    ) : (
+                        <>
+                            {isAlert && <Alert />}
+                            <Form />
+                        </>
+                    )}
                 </>
             ) : (
-                <>
-                    {isAlert && <Alert />}
-                    <Logout />
-                    <InqWrapper />
-                </>
+                <Modal />
             )}
         </>
     );
@@ -33,7 +40,8 @@ let App = ({ isAuthenticated, isAlert }) => {
 */
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.mode.isAuthenticated,
+    isAuthenticated: state.auth.isAuthenticated,
+    isModalOpen: state.modal.isOpen,
     isAlert: state.alert.type
 });
 
