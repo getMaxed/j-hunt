@@ -1,4 +1,6 @@
 import {
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAILURE,
     REG_FAILURE,
     REG_SUCCESS,
     LOGIN_SUCCESS,
@@ -23,6 +25,7 @@ export default (state = initialState, action) => {
                 isAuthenticated: true,
                 token: payload
             };
+        case LOAD_USER_FAILURE:
         case REG_FAILURE:
         case LOGIN_FAILURE:
             localStorage.removeItem(`token`);

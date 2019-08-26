@@ -21,10 +21,10 @@ const Form = ({ login, register, setAlert }) => {
     function handleSubmit(e) {
         e.preventDefault();
         isLoggingIn
-            ? login(username, password)
+            ? login(username.trim(), password)
             : password !== password2
             ? setAlert(`failure`, `passwords don't match`)
-            : register(username, password);
+            : register(username.trim(), password);
         setInputData(emptyInput);
     }
 
@@ -51,7 +51,7 @@ const Form = ({ login, register, setAlert }) => {
                 />{' '}
                 <br />
                 <input
-                    type="text"
+                    type="password"
                     name="password"
                     value={password}
                     onChange={e => handleInputChange(e)}
@@ -59,7 +59,7 @@ const Form = ({ login, register, setAlert }) => {
                 <br />
                 {!isLoggingIn && (
                     <input
-                        type="text"
+                        type="password"
                         name="password2"
                         value={password2}
                         onChange={e => handleInputChange(e)}

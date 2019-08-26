@@ -14,7 +14,11 @@ const Alert = ({ type, msg }) => {
             return `grey`;
         }
     };
-    return <div style={{ color: color(type) }}>{msg}</div>;
+    return (
+        <div style={{ color: color(type), position: 'fixed', left: '250px' }}>
+            {msg}
+        </div>
+    );
 };
 
 const mapStateToProps = state => ({
