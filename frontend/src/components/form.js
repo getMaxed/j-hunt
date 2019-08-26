@@ -3,7 +3,7 @@ import { login, register } from '../actions/auth';
 import { setAlert } from '../actions/alert';
 import { connect } from 'react-redux';
 
-const Form = ({ login, register, setAlert }) => {
+const Form = ({ login, register, setAlert, isLoading }) => {
     const emptyInput = {
         username: '',
         password: '',
@@ -35,44 +35,54 @@ const Form = ({ login, register, setAlert }) => {
 
     return (
         <>
-            <a href="" onClick={e => handlePageChange(e, true)}>
-                Log In
-            </a>
-            |||
-            <a href="" onClick={e => handlePageChange(e, false)}>
-                Sign Up
-            </a>
-            <form onSubmit={e => handleSubmit(e)}>
-                <input
-                    type="text"
-                    name="username"
-                    value={username}
-                    onChange={e => handleInputChange(e)}
-                />{' '}
-                <br />
-                <input
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={e => handleInputChange(e)}
-                />{' '}
-                <br />
-                {!isLoggingIn && (
-                    <input
-                        type="password"
-                        name="password2"
-                        value={password2}
-                        onChange={e => handleInputChange(e)}
-                    />
-                )}
-                <br />
-                <input type="submit" value={submitBtnValue} />
-            </form>
+            {!isLoading ? (
+                <>
+                    <a href="" onClick={e => handlePageChange(e, true)}>
+                        Log In
+                    </a>
+                    |||
+                    <a href="" onClick={e => handlePageChange(e, false)}>
+                        Sign Up
+                    </a>
+                    <form onSubmit={e => handleSubmit(e)}>
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            onChange={e => handleInputChange(e)}
+                        />{' '}
+                        <br />
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={e => handleInputChange(e)}
+                        />{' '}
+                        <br />
+                        {!isLoggingIn && (
+                            <input
+                                type="password"
+                                name="password2"
+                                value={password2}
+                                onChange={e => handleInputChange(e)}
+                            />
+                        )}
+                        <br />
+                        <input type="submit" value={submitBtnValue} />
+                    </form>
+                </>
+            ) : (
+                ''
+            )}
         </>
     );
 };
 
+const mapStateToProps = state => ({
+    isLoading: state.auth.isLoading
+});
+
 export default connect(
-    null,
+    mapStateToProps,
     { login, register, setAlert }
 )(Form);

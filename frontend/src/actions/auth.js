@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import {
-    LOAD_USER_SUCCESS,
-    LOAD_USER_FAILURE,
+    AUTH_SUCCESS,
+    AUTH_FAILURE,
     REG_SUCCESS,
     REG_FAILURE,
     LOGIN_SUCCESS,
@@ -15,6 +15,7 @@ const httpConfig = {
         'Content-type': `application/json`
     }
 };
+
 const setAuthToken = token => {
     if (token) {
         axios.defaults.headers.common['x-auth-token'] = token;
@@ -23,25 +24,28 @@ const setAuthToken = token => {
     }
 };
 
+const authUrl = `http://localhost:5000/api/auth`;
 const loginUrl = `http://localhost:5000/api/login`;
 const registerUrl = `http://localhost:5000/api/register`;
 
 export const loadUser = () => async dispatch => {
+    console.log(123123);
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
 
     try {
-        const res = await axios.get(loginUrl);
+        const res = await axios.get(authUrl);
+        console.log(res.data);
         dispatch({
-            type: LOAD_USER_SUCCESS,
+            type: AUTH_SUCCESS,
             payload: res.data
         });
     } catch (err) {
         dispatch({
-            type: LOAD_USER_FAILURE
+            type: AUTH_FAILURE
         });
-        dispatch(setAlert(`failure`, `couldn't load a user`));
+        console.error(err.response.data.error);
     }
 };
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 
-const Logout = ({ logout }) => {
+const Logout = ({ username, logout }) => {
     return (
         <div
             style={{
@@ -10,7 +10,7 @@ const Logout = ({ logout }) => {
                 right: '10px'
             }}
         >
-            <p style={{ margin: 0, padding: 0 }}>todo: add username here</p>
+            <p style={{ margin: 0, padding: 0 }}>{username}</p>
             <svg
                 onClick={() => logout()}
                 version="1.1"
@@ -45,7 +45,11 @@ const Logout = ({ logout }) => {
     );
 };
 
+const mapStateToProps = state => ({
+    username: state.auth.user.username
+});
+
 export default connect(
-    null,
+    mapStateToProps,
     { logout }
 )(Logout);
