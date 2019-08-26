@@ -1,4 +1,4 @@
-import { ADD_COMPANY, UPDATE_COMPANY } from '../actions';
+import { LOAD_COMPANIES, ADD_COMPANY, UPDATE_COMPANY } from '../actions';
 
 const initialState = {
     list: [],
@@ -10,6 +10,13 @@ export default (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
+        case LOAD_COMPANIES:
+            return {
+                ...state,
+                list: payload,
+                curr: payload[0],
+                isLoading: false
+            };
         case ADD_COMPANY:
             console.log(`action: add company`, payload);
             return state;

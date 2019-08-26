@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { setAlert } from './alert';
+import { loadCompanies } from './company';
 import {
     AUTH_SUCCESS,
     AUTH_FAILURE,
@@ -39,6 +40,7 @@ export const loadUser = () => async dispatch => {
             type: AUTH_SUCCESS,
             payload: res.data
         });
+        dispatch(loadCompanies());
     } catch (err) {
         dispatch({
             type: AUTH_FAILURE
