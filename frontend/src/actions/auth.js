@@ -29,14 +29,12 @@ const loginUrl = `http://localhost:5000/api/login`;
 const registerUrl = `http://localhost:5000/api/register`;
 
 export const loadUser = () => async dispatch => {
-    console.log(123123);
     if (localStorage.token) {
         setAuthToken(localStorage.token);
     }
 
     try {
         const res = await axios.get(authUrl);
-        console.log(res.data);
         dispatch({
             type: AUTH_SUCCESS,
             payload: res.data
@@ -50,7 +48,6 @@ export const loadUser = () => async dispatch => {
 };
 
 export const login = (username, password) => async dispatch => {
-    console.log('asdfasdf');
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(loginUrl, body, httpConfig);
@@ -94,6 +91,5 @@ export const register = (username, password) => async dispatch => {
         if (error) {
             dispatch(setAlert(`failure`, error));
         }
-        console.log(err.response);
     }
 };

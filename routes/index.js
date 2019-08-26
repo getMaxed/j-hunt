@@ -3,5 +3,5 @@ module.exports = app => {
     app.use(`/api/auth`, require(`./api/auth`));
     app.use(`/api/login`, require(`./api/login`));
     app.use(`/api/register`, require(`./api/register`));
-    app.use(`/api/inq`, require(`./api/inq`));
+    app.use(`/api/companies`, require(`./api/companies`));
 };

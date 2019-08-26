@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const UserSchema = new mongoose.Schema({
+const CompanySchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'user'
+        ref: 'company'
     },
     company_name: {
         type: String,
@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    application_link: {
+    link_or_desc: {
         type: String
     },
     source: {
@@ -25,13 +25,28 @@ const UserSchema = new mongoose.Schema({
     },
     stage: {
         type: String,
+        // from each inquire
         enum: ['applied', 'screened', 'interviewed', 'second_interviewed']
     },
-
-    registered_on: {
+    stage_inq_count: {
+        // null when moving up the stage
+        type: Number,
+        min: 0,
+        max: 3
+    },
+    note: {
+        type: String
+    },
+    first_inq_on: {
         type: Date,
         default: Date.now
+    },
+    last_inq_on: {
+        type: Date
+    },
+    failed_on: {
+        type: Date
     }
 });
 
-module.exports = User = mongoose.model('user', UserSchema);
+module.exports = Company = mongoose.model('user', UserSchema);

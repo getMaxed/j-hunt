@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { connect } from 'react-redux';
 import store from './store';
-import Form from './components/form';
+import AuthForm from './components/authForm';
 import Alert from './components/alert';
 import Logout from './components/logout';
 import Modal from './components/modal';
-import InqWrapper from './components/inqWrapper';
+import Dashboard from './components/dashboard';
 import { loadUser } from './actions/auth';
 
 let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
@@ -22,12 +22,12 @@ let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
                         <>
                             {isAlert && <Alert />}
                             <Logout />
-                            <InqWrapper />
+                            <Dashboard />
                         </>
                     ) : (
                         <>
                             {isAlert && <Alert />}
-                            <Form />
+                            <AuthForm />
                         </>
                     )}
                 </>
