@@ -6,16 +6,13 @@ const CompanySchema = new mongoose.Schema({
         ref: 'company'
     },
     company_name: {
-        type: String,
-        required: true
+        type: String
     },
     company_name_slug: {
-        type: String,
-        required: true
+        type: String
     },
     intermediary: {
-        type: Boolean,
-        default: false
+        type: String
     },
     link_or_desc: {
         type: String
@@ -49,4 +46,4 @@ const CompanySchema = new mongoose.Schema({
     }
 });
 
-module.exports = Company = mongoose.model('user', UserSchema);
+module.exports = Company = mongoose.model('company', CompanySchema);

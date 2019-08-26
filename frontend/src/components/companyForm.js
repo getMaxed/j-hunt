@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { addCompany } from '../actions/company';
 
-export default function CompanyForm() {
+const CompanyForm = ({ addCompany }) => {
     const emptyInput = {
         company_name: '',
         intermediary: '',
@@ -42,7 +44,7 @@ export default function CompanyForm() {
 
     function handleSubmit(e) {
         e.preventDefault();
-        console.log(inputData);
+        addCompany(inputData);
     }
 
     return (
@@ -188,4 +190,9 @@ export default function CompanyForm() {
             <input type="submit" value="Submit" />
         </form>
     );
-}
+};
+
+export default connect(
+    null,
+    { addCompany }
+)(CompanyForm);
