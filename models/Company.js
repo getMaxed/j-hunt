@@ -15,7 +15,12 @@ const CompanySchema = new mongoose.Schema({
         type: String
     },
     link_or_desc: {
-        type: String
+        value: {
+            type: String
+        },
+        isLink: {
+            type: Boolean
+        }
     },
     source: {
         type: String

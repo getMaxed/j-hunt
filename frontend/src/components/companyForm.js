@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { addCompany } from '../actions/company';
 import { setAlert } from '../actions/alert';
@@ -22,10 +22,11 @@ const date = d => {
     }
 };
 
-const CompanyForm = ({ addCompany, setAlert }) => {
+const CompanyForm = ({ company, addCompany, setAlert }) => {
+    const { name, isCompany } = company;
     const emptyInput = {
-        company_name: '',
-        intermediary: '',
+        company_name: isCompany ? name : '',
+        intermediary: isCompany ? '' : name,
         link_or_desc: '',
         source: '',
         stage: 'applied',
@@ -103,7 +104,9 @@ const CompanyForm = ({ addCompany, setAlert }) => {
             return console.log(date(first_inq_on));
         }
 
-        setInputData(emptyInput);
+        emptyInput.company_name = '';
+        emptyInput.intermediary = '';
+        setInputData({ emptyInput });
         return console.log(inputData);
         addCompany(inputData);
     }
