@@ -1,8 +1,28 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addCompany } from '../actions/company';
+import { setAlert } from '../actions/alert';
 
-const CompanyForm = ({ addCompany }) => {
+const isValidURL = str => {
+    var res = str.match(
+        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    return res !== null;
+};
+
+const date = d => {
+    const regex = /[\d]{2}\/[\d]{2}/;
+    console.log(d);
+    if (regex.test(d)) {
+        const [mm, dd] = d.split('/');
+        const d = `${mm}.${dd}.2019`;
+        return new Date(d);
+    } else {
+        console.log(`date should be formatted as DD/MM`);
+    }
+};
+
+const CompanyForm = ({ addCompany, setAlert }) => {
     const emptyInput = {
         company_name: '',
         intermediary: '',
@@ -15,7 +35,7 @@ const CompanyForm = ({ addCompany }) => {
         last_inq_on: ''
     };
     const [needJobForm, setNeedJob] = useState(true);
-    const [enterLinkNotDesc, setEnterLinkNotDesc] = useState(true);
+    const [isLink, setIsLink] = useState(true);
     const [inputData, setInputData] = useState(emptyInput);
     const {
         company_name,
@@ -39,17 +59,58 @@ const CompanyForm = ({ addCompany }) => {
 
     function handlePageChange(e, link) {
         e.preventDefault();
-        setEnterLinkNotDesc(link);
+        setIsLink(link);
     }
 
     function handleSubmit(e) {
         e.preventDefault();
+
+        if (
+            first_inq_on === 'Invalid Date' ||
+            isNaN(first_inq_on) ||
+            last_inq_on === 'Invalid Date' ||
+            isNaN(last_inq_on)
+        ) {
+            return setAlert(`failure`, `date should be formatted as DD/MM`);
+        }
+
+        if (!company_name && !intermediary) {
+            return setAlert(
+                `failure`,
+                `either company or intermediary is required`
+            );
+        }
+
+        if (!link_or_desc) {
+            return setAlert(`failure`, `link or description is required`);
+        } else {
+            const value = link_or_desc;
+            if (isLink && !isValidURL(value)) {
+                return setAlert(`failure`, `please enter valid URL`);
+            } else {
+                inputData.link_or_desc = {
+                    value,
+                    isLink
+                };
+            }
+        }
+
+        if (!source) {
+            return setAlert(`failure`, `source is required`);
+        }
+
+        if (first_inq_on !== '') {
+            return console.log(date(first_inq_on));
+        }
+
+        setInputData(emptyInput);
+        return console.log(inputData);
         addCompany(inputData);
     }
 
     return (
         <form onSubmit={e => handleSubmit(e)}>
-            <label htmlFor="company_name">Company Name</label> <br />
+            <label htmlFor="company_name">Company</label> <br />
             <input
                 type="text"
                 name="company_name"
@@ -60,10 +121,7 @@ const CompanyForm = ({ addCompany }) => {
             <br /> <br />
             {needJobForm && (
                 <>
-                    <label htmlFor="intermediary">
-                        Intermediaries Involved
-                    </label>{' '}
-                    <br />
+                    <label htmlFor="intermediary">Intermediary</label> <br />
                     <input
                         type="text"
                         name="intermediary"
@@ -82,7 +140,7 @@ const CompanyForm = ({ addCompany }) => {
                         </a>
                     </label>{' '}
                     <br />
-                    {enterLinkNotDesc ? (
+                    {isLink ? (
                         <input
                             type="text"
                             name="link_or_desc"
@@ -92,7 +150,7 @@ const CompanyForm = ({ addCompany }) => {
                         />
                     ) : (
                         <textarea
-                            name="note"
+                            name="link_or_desc"
                             id="note"
                             cols="30"
                             rows="10"
@@ -166,8 +224,7 @@ const CompanyForm = ({ addCompany }) => {
                         onChange={e => handleInputChange(e)}
                     ></textarea>
                     <br /> <br />
-                    <label htmlFor="first_inq_on">First Inquiry On</label>{' '}
-                    <br />
+                    <label htmlFor="first_inq_on">First Inquiry</label> <br />
                     <input
                         type="text"
                         name="first_inq_on"
@@ -176,7 +233,7 @@ const CompanyForm = ({ addCompany }) => {
                         onChange={e => handleInputChange(e)}
                     />
                     <br /> <br />
-                    <label htmlFor="last_inq_on">Last Inquiry On</label> <br />
+                    <label htmlFor="last_inq_on">Last Inquiry</label> <br />
                     <input
                         type="text"
                         name="last_inq_on"
@@ -194,5 +251,5 @@ const CompanyForm = ({ addCompany }) => {
 
 export default connect(
     null,
-    { addCompany }
+    { addCompany, setAlert }
 )(CompanyForm);
