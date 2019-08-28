@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import CompanyForm from './companyForm';
 import Company from './company';
 import SearchBar from './searchbar';
-import Companies from './companies';
+
+const Table = styled.table`
+    margin-top: 12px;
+    border-collapse: collapse;
+`;
+
+const THead = styled.th`
+    text-align: left;
+`;
 
 const Dashboard = ({ companies }) => {
     const [newCompany, setNewCompany] = useState({});
@@ -20,27 +29,29 @@ const Dashboard = ({ companies }) => {
                 <SearchBar companyAdded={companyAdded} />
             )}
             {!addingCompany && companies.length > 0 && (
-                <table
-                    style={{ marginTop: `20px`, borderCollapse: `collapse` }}
-                >
+                <Table>
                     <thead>
                         <tr>
-                            <th>Company Name</th>
-                            <th>Intermediary</th>
-                            <th>Source</th>
-                            <th>Stage</th>
-                            <th>Inq #</th>
-                            <th>Note</th>
-                            <th>First Inquiry</th>
-                            <th>Latest Inquiry</th>
+                            <THead>Company</THead>
+                            <THead>Intermediary</THead>
+                            <THead>Source</THead>
+                            <THead>Stage</THead>
+                            <THead>Note</THead>
+                            <THead>First Inquiry</THead>
+                            <THead>Latest Inquiry</THead>
+                            <THead>Inq</THead>
                         </tr>
                     </thead>
                     <tbody>
-                        {companies.map(c => (
-                            <Company key={Math.random()} company={c} />
+                        {companies.map((c, i) => (
+                            <Company
+                                key={Math.random()}
+                                company={c}
+                                isEven={i % 2 === 0}
+                            />
                         ))}
                     </tbody>
-                </table>
+                </Table>
             )}
         </>
     );

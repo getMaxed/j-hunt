@@ -23,7 +23,7 @@ const companyList = [
     }
 ];
 
-export default function SearchBar({ setNewCompany }) {
+export default function SearchBar({ companyAdded }) {
     const [name, setName] = useState('');
     const [isIntermediary, setIsIntermediary] = useState(false);
     const [savedCompanies, setSavedCompanies] = useState([]);
@@ -38,7 +38,7 @@ export default function SearchBar({ setNewCompany }) {
         e.preventDefault();
         const company = name ? { name, isIntermediary } : {};
         console.log(company);
-        setNewCompany(company);
+        companyAdded(company);
     }
 
     return (
@@ -69,8 +69,8 @@ export default function SearchBar({ setNewCompany }) {
                 value="Bike"
                 onChange={e => setIsIntermediary(e.target.checked)}
             />
-            <br /> <br />
-            <input type="submit" value="Submit" />
+            <br />
+            <input type="submit" value="Submit" style={{ marginTop: '5px' }} />
         </form>
     );
 }
