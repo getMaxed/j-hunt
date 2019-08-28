@@ -47,7 +47,7 @@ const Logout = ({ username, logout }) => {
 };
 
 const mapStateToProps = state => ({
-    username: state.auth.user.username
+    username: state.auth.user && state.auth.user.username
 });
 
 export default connect(

@@ -14,8 +14,6 @@ let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
         store.dispatch(loadUser());
     }, []);
 
-    console.log(123);
-
     return (
         <>
             {!isModalOpen ? (

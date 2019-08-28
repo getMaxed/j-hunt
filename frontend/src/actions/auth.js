@@ -77,7 +77,6 @@ export const logout = () => dispatch => {
 };
 
 export const register = (username, password) => async dispatch => {
-    console.log('register1');
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(registerUrl, body, httpConfig);
@@ -85,18 +84,14 @@ export const register = (username, password) => async dispatch => {
             type: REG_SUCCESS,
             payload: res.data.token
         });
-        console.log(`success`);
         dispatch(setAlert(`success`, `user registered`));
-        console.log(`success2`);
     } catch (err) {
         dispatch({
             type: REG_FAILURE
         });
-        console.log(`failllll`);
-        console.error(err);
-        // const error = err.response.data.error;
-        // if (error) {
-        //     dispatch(setAlert(`failure`, error));
-        // }
+        const error = err.response && err.response.data.error;
+        if (error) {
+            dispatch(setAlert(`failure`, error));
+        }
     }
 };

@@ -3,25 +3,6 @@ import { connect } from 'react-redux';
 import { addCompany } from '../actions/company';
 import { setAlert } from '../actions/alert';
 
-const isValidURL = str => {
-    var res = str.match(
-        /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
-    );
-    return res !== null;
-};
-
-const date = d => {
-    const regex = /[\d]{2}\/[\d]{2}/;
-    console.log(d);
-    if (regex.test(d)) {
-        const [mm, dd] = d.split('/');
-        const d = `${mm}.${dd}.2019`;
-        return new Date(d);
-    } else {
-        console.log(`date should be formatted as DD/MM`);
-    }
-};
-
 const CompanyForm = ({ company, addCompany, setAlert }) => {
     const { name, isIntermediary } = company;
     const emptyInput = {
@@ -66,49 +47,30 @@ const CompanyForm = ({ company, addCompany, setAlert }) => {
     function handleSubmit(e) {
         e.preventDefault();
 
-        if (
-            first_inq_on === 'Invalid Date' ||
-            isNaN(first_inq_on) ||
-            last_inq_on === 'Invalid Date' ||
-            isNaN(last_inq_on)
-        ) {
-            return setAlert(`failure`, `date should be formatted as DD/MM`);
-        }
+        const linkOrDescValue = link_or_desc;
+        inputData.link_or_desc = {
+            value: linkOrDescValue,
+            isLink: isLink
+        };
 
-        if (!company_name && !intermediary) {
-            return setAlert(
-                `failure`,
-                `either company or intermediary is required`
-            );
-        }
+        // console.log('a', linkOrDescValue.value);
 
-        if (!link_or_desc) {
-            return setAlert(`failure`, `link or description is required`);
-        } else {
-            const value = link_or_desc;
-            if (isLink && !isValidURL(value)) {
-                return setAlert(`failure`, `please enter valid URL`);
-            } else {
-                inputData.link_or_desc = {
-                    value,
-                    isLink
-                };
-            }
-        }
-
-        if (!source) {
-            return setAlert(`failure`, `source is required`);
-        }
-
-        if (first_inq_on !== '') {
-            return console.log(date(first_inq_on));
-        }
-
-        emptyInput.company_name = '';
-        emptyInput.intermediary = '';
-        setInputData({ emptyInput });
-        return console.log(inputData);
         addCompany(inputData);
+        setInputData(inputData => {
+            return {
+                ...inputData,
+                link_or_desc: linkOrDescValue || ''
+            };
+        });
+        // setInputData(inputData => {
+        //     return {
+        //         ...inputData,
+        //         link_or_desc: ''
+        //     };
+        // });
+        // emptyInput.company_name = '';
+        // emptyInput.intermediary = '';
+        // setInputData(emptyInput);
     }
 
     return (
@@ -168,8 +130,15 @@ const CompanyForm = ({ company, addCompany, setAlert }) => {
                         name="source"
                         id="source"
                         value={source}
+                        list="sources"
                         onChange={e => handleInputChange(e)}
                     />
+                    <datalist id="sources">
+                        <option value="linkedin" />
+                        <option value="angel" />
+                        <option value="monster" />
+                        <option value="glassdoor" />
+                    </datalist>
                     <br /> <br />
                     <label htmlFor="stage">Stage</label> <br />
                     <select

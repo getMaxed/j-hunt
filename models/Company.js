@@ -37,17 +37,20 @@ const CompanySchema = new mongoose.Schema({
         max: 3
     },
     note: {
-        type: String
+        type: String,
+        default: null
     },
     first_inq_on: {
         type: Date,
         default: Date.now
     },
     last_inq_on: {
-        type: Date
+        type: Date,
+        default: null
     },
     failed_on: {
-        type: Date
+        type: Date,
+        default: null
     }
 });
 

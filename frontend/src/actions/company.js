@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { ADD_COMPANY, LOAD_COMPANIES } from './index';
+import { setAlert } from './alert';
 
 const httpConfig = {
     headers: {
@@ -31,7 +32,10 @@ export const addCompany = companyData => async (dispatch, getState) => {
         await axios.post(addUrl, body, httpConfig);
     } catch (err) {
         // todo: handle errors
-        console.error(err);
+        const error = err.response && err.response.data.error;
+        if (error) {
+            dispatch(setAlert(`failure`, error));
+        }
     }
     dispatch({
         type: ADD_COMPANY,
