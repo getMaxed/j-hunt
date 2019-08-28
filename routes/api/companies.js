@@ -52,10 +52,12 @@ router.post('/add', async (req, res) => {
 
     if (date1) {
         first_inq_on = formatDate(date1);
-        if (!first_inq_on)
+        if (!first_inq_on) {
+            first_inq_on = Date.now();
             return res
                 .status(400)
                 .json({ error: `invalid date or format (should be DD/MM)` });
+        }
     }
 
     if (date2) {
@@ -67,6 +69,7 @@ router.post('/add', async (req, res) => {
     }
 
     const company_name_slug = slugify(company_name);
+    const intermediary_slug = slugify(intermediary);
     console.log('success');
 
     try {
@@ -75,6 +78,7 @@ router.post('/add', async (req, res) => {
             company_name,
             company_name_slug,
             intermediary,
+            intermediary_slug,
             link_or_desc,
             source,
             stage,
@@ -84,7 +88,7 @@ router.post('/add', async (req, res) => {
             last_inq_on
         });
         await company.save();
-        res.status(204);
+        res.json();
     } catch (err) {
         // todo:
         console.error(err);

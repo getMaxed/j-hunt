@@ -14,6 +14,9 @@ const CompanySchema = new mongoose.Schema({
     intermediary: {
         type: String
     },
+    intermediary_slug: {
+        type: String
+    },
     link_or_desc: {
         value: {
             type: String

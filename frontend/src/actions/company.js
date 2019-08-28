@@ -30,8 +30,8 @@ export const addCompany = companyData => async (dispatch, getState) => {
         const userId = getState().auth.user._id;
         const body = JSON.stringify({ userId, ...companyData });
         await axios.post(addUrl, body, httpConfig);
+        dispatch(setAlert(`success`, `company added successfully`));
     } catch (err) {
-        // todo: handle errors
         const error = err.response && err.response.data.error;
         if (error) {
             dispatch(setAlert(`failure`, error));
@@ -42,11 +42,3 @@ export const addCompany = companyData => async (dispatch, getState) => {
         payload: companyData
     });
 };
-
-// export const getInq = () => dispatch => {
-//     console.log(`action: get inquiries`);
-// };
-
-// export const updateInq = () => dispatch => {
-//     console.log(`action: update inquiries`);
-// };
