@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/auth';
 
 const Logout = ({ username, logout }) => {
+    console.log(username);
     return (
         <div
             style={{
