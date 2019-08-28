@@ -23,10 +23,10 @@ const date = d => {
 };
 
 const CompanyForm = ({ company, addCompany, setAlert }) => {
-    const { name, isCompany } = company;
+    const { name, isIntermediary } = company;
     const emptyInput = {
-        company_name: isCompany ? name : '',
-        intermediary: isCompany ? '' : name,
+        company_name: isIntermediary ? '' : name,
+        intermediary: isIntermediary ? name : '',
         link_or_desc: '',
         source: '',
         stage: 'applied',
