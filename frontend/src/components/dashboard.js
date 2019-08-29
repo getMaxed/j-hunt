@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { setAddingCompany, addCompany } from '../actions/company';
 import CompanyForm from './companyForm';
 import Company from './company';
 import SearchBar from './searchbar';
@@ -14,23 +15,28 @@ const THead = styled.th`
     text-align: left;
 `;
 
-const Dashboard = ({ companies }) => {
-    const [newCompany, setNewCompany] = useState({});
-    const addingCompany = Object.keys(newCompany).length;
-    const companyAdded = company => setNewCompany(company);
-    console.log(addingCompany);
+const Dashboard = ({
+    activeCompanies,
+    failedCompanies,
+    addingCompany,
+    setAddingCompany,
+    addCompany
+}) => {
     return (
         <>
             {addingCompany ? (
                 <CompanyForm
-                    company={newCompany}
-                    companyAdded={companyAdded}
-                    setNewCompany={setNewCompany}
+                    addingCompany={addingCompany}
+                    addCompany={addCompany}
                 />
             ) : (
-                <SearchBar companyAdded={companyAdded} />
+                <SearchBar
+                    setAddingCompany={setAddingCompany}
+                    activeCompanies={activeCompanies}
+                    failedCompanies={failedCompanies}
+                />
             )}
-            {!addingCompany && companies.length > 0 && (
+            {!addingCompany && activeCompanies.length > 0 && (
                 <Table>
                     <thead>
                         <tr>
@@ -45,7 +51,7 @@ const Dashboard = ({ companies }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {companies.map((c, i) => (
+                        {activeCompanies.map((c, i) => (
                             <Company
                                 key={Math.random()}
                                 company={c}
@@ -60,7 +66,12 @@ const Dashboard = ({ companies }) => {
 };
 
 const mapStateToProps = state => ({
-    companies: state.company.list
+    activeCompanies: state.company.active,
+    failedCompanies: state.company.failed,
+    addingCompany: state.company.adding
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(
+    mapStateToProps,
+    { setAddingCompany, addCompany }
+)(Dashboard);

@@ -23,7 +23,11 @@ const companyList = [
     }
 ];
 
-export default function SearchBar({ companyAdded }) {
+export default function SearchBar({
+    setAddingCompany,
+    activeCompanies,
+    failedCompanies
+}) {
     const [name, setName] = useState('');
     const [isIntermediary, setIsIntermediary] = useState(false);
     const [savedCompanies, setSavedCompanies] = useState([]);
@@ -36,9 +40,9 @@ export default function SearchBar({ companyAdded }) {
 
     function handleSubmit(e) {
         e.preventDefault();
-        const company = name ? { name, isIntermediary } : {};
+        const company = name ? { name, isIntermediary } : false;
         console.log(company);
-        companyAdded(company);
+        setAddingCompany(company);
     }
 
     return (

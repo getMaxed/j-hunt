@@ -1,9 +1,16 @@
-import { LOAD_COMPANIES, ADD_COMPANY, UPDATE_COMPANY } from '../actions';
+import {
+    LOAD_COMPANIES,
+    ADD_COMPANY_SUCCESS,
+    SET_ADDING_COMPANY,
+    ADD_COMPANY_FAILURE,
+    UPDATE_COMPANY
+} from '../actions';
 
 const initialState = {
-    list: [],
-    curr: {},
-    isLoading: true
+    active: [],
+    failed: [],
+    isLoading: true,
+    adding: null
 };
 
 export default (state = initialState, action) => {
@@ -13,14 +20,24 @@ export default (state = initialState, action) => {
         case LOAD_COMPANIES:
             return {
                 ...state,
-                list: payload,
-                curr: payload[0],
+                active: payload,
                 isLoading: false
             };
-        case ADD_COMPANY:
+        case SET_ADDING_COMPANY:
             return {
                 ...state,
-                list: [...state.list, payload]
+                adding: payload
+            };
+        case ADD_COMPANY_SUCCESS:
+            return {
+                ...state,
+                active: [...state.active, payload],
+                adding: null
+            };
+        case ADD_COMPANY_FAILURE:
+            return {
+                ...state,
+                isError: true
             };
         case UPDATE_COMPANY:
             console.log(`action: update company`);

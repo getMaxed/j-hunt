@@ -13,8 +13,8 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
+    // trg
     console.log(req.body);
-
     const {
         userId,
         company_name,

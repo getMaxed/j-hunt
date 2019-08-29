@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { ADD_COMPANY, LOAD_COMPANIES } from './index';
+import {
+    ADD_COMPANY_SUCCESS,
+    LOAD_COMPANIES,
+    SET_ADDING_COMPANY,
+    ADD_COMPANY_FAILURE
+} from './index';
 import { setAlert } from './alert';
 
 const httpConfig = {
@@ -15,6 +20,7 @@ export const loadCompanies = () => async (dispatch, getState) => {
         const userId = getState().auth.user._id;
         const body = JSON.stringify({ userId });
         const res = await axios.post(loadUrl, body, httpConfig);
+        console.log(`loadComps`, res.data);
         dispatch({
             type: LOAD_COMPANIES,
             payload: res.data
@@ -31,14 +37,25 @@ export const addCompany = companyData => async (dispatch, getState) => {
         const body = JSON.stringify({ userId, ...companyData });
         const company = await axios.post(addUrl, body, httpConfig);
         dispatch({
-            type: ADD_COMPANY,
+            type: ADD_COMPANY_SUCCESS,
             payload: company.data
         });
         dispatch(setAlert(`success`, `company added successfully`));
     } catch (err) {
+        // trg;
+        dispatch({
+            type: ADD_COMPANY_FAILURE
+        });
         const error = err.response && err.response.data.error;
         if (error) {
             dispatch(setAlert(`failure`, error));
         }
     }
+};
+
+export const setAddingCompany = name => async dispatch => {
+    dispatch({
+        type: SET_ADDING_COMPANY,
+        payload: name
+    });
 };

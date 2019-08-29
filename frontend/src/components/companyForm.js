@@ -1,10 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { connect } from 'react-redux';
-import { addCompany } from '../actions/company';
-import { setAlert } from '../actions/alert';
+import React, { useState } from 'react';
 
-const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
-    const { name, isIntermediary } = company;
+export default function CompanyForm({ addingCompany, addCompany }) {
+    const { name, isIntermediary } = addingCompany;
     const emptyInput = {
         company_name: isIntermediary ? '' : name,
         intermediary: isIntermediary ? name : '',
@@ -39,9 +36,7 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-
         addCompany(inputData);
-        companyAdded({});
     }
 
     return (
@@ -164,9 +159,4 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
             <input type="submit" value="Submit" />
         </form>
     );
-};
-
-export default connect(
-    null,
-    { addCompany, setAlert }
-)(CompanyForm);
+}
