@@ -17,13 +17,8 @@ const CompanySchema = new mongoose.Schema({
     intermediary_slug: {
         type: String
     },
-    link_or_desc: {
-        value: {
-            type: String
-        },
-        isLink: {
-            type: Boolean
-        }
+    link: {
+        type: String
     },
     source: {
         type: String
