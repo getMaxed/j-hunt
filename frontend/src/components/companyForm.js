@@ -8,7 +8,7 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
     const emptyInput = {
         company_name: isIntermediary ? '' : name,
         intermediary: isIntermediary ? name : '',
-        link_or_desc: '',
+        link: '',
         source: '',
         stage: 'applied',
         stage_inq_count: 0,
@@ -16,12 +16,11 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
         first_inq_on: '',
         last_inq_on: ''
     };
-    const [isLink, setIsLink] = useState(true);
     const [inputData, setInputData] = useState(emptyInput);
     const {
         company_name,
         intermediary,
-        link_or_desc,
+        link,
         source,
         stage,
         stage_inq_count,
@@ -38,27 +37,10 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
         setInputData({ ...inputData, [type]: e.target.value });
     }
 
-    function handlePageChange(e, link) {
-        e.preventDefault();
-        setIsLink(link);
-    }
-
     function handleSubmit(e) {
         e.preventDefault();
 
-        const linkOrDescValue = link_or_desc;
-        inputData.link_or_desc = {
-            value: linkOrDescValue,
-            isLink: isLink
-        };
-
         addCompany(inputData);
-        setInputData(inputData => {
-            return {
-                ...inputData,
-                link_or_desc: linkOrDescValue || ''
-            };
-        });
         companyAdded({});
     }
 
@@ -82,34 +64,14 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />
-            <label htmlFor="link_or_desc">
-                <a href="" onClick={e => handlePageChange(e, true)}>
-                    Link
-                </a>
-                &nbsp;or&nbsp;
-                <a href="" onClick={e => handlePageChange(e, false)}>
-                    Description
-                </a>
-            </label>{' '}
-            <br />
-            {isLink ? (
-                <input
-                    type="text"
-                    name="link_or_desc"
-                    id="link_or_desc"
-                    value={link_or_desc}
-                    onChange={e => handleInputChange(e)}
-                />
-            ) : (
-                <textarea
-                    name="link_or_desc"
-                    id="note"
-                    cols="30"
-                    rows="10"
-                    value={link_or_desc}
-                    onChange={e => handleInputChange(e)}
-                ></textarea>
-            )}
+            <label htmlFor="link">Link</label> <br />
+            <input
+                type="text"
+                name="link"
+                id="link"
+                value={link}
+                onChange={e => handleInputChange(e)}
+            />
             <br /> <br />
             <label htmlFor="source">Source</label> <br />
             <input
@@ -121,6 +83,7 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
                 onChange={e => handleInputChange(e)}
             />
             <datalist id="sources">
+                <option value="indeed" />
                 <option value="linkedin" />
                 <option value="angel" />
                 <option value="monster" />

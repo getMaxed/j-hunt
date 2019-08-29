@@ -19,7 +19,7 @@ router.post('/add', async (req, res) => {
         userId,
         company_name,
         intermediary,
-        link_or_desc,
+        link,
         source,
         stage,
         stage_inq_count,
@@ -34,14 +34,10 @@ router.post('/add', async (req, res) => {
             .json({ error: `either company or intermediary is required` });
     }
 
-    if (!link_or_desc.value) {
-        return res
-            .status(400)
-            .json({ error: `link or description is required` });
-    } else {
-        if (link_or_desc.isLink && !isValidURL(link_or_desc.value)) {
-            return res.status(400).json({ error: `please enter valid URL` });
-        }
+    if (!link) {
+        return res.status(400).json({ error: `link is required` });
+    } else if (!isValidURL(link)) {
+        return res.status(400).json({ error: `please enter valid URL` });
     }
 
     if (!source) {
@@ -79,7 +75,7 @@ router.post('/add', async (req, res) => {
             company_name_slug,
             intermediary,
             intermediary_slug,
-            link_or_desc,
+            link,
             source,
             stage,
             stage_inq_count,
