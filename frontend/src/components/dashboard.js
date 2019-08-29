@@ -17,7 +17,8 @@ const THead = styled.th`
 const Dashboard = ({ companies }) => {
     const [newCompany, setNewCompany] = useState({});
     const addingCompany = Object.keys(newCompany).length;
-    const companyAdded = () => setNewCompany({});
+    const companyAdded = company => setNewCompany(company);
+    console.log(addingCompany);
     return (
         <>
             {addingCompany ? (
