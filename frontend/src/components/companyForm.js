@@ -59,6 +59,7 @@ const CompanyForm = ({ company, addCompany, companyAdded, setAlert }) => {
                 link_or_desc: linkOrDescValue || ''
             };
         });
+        companyAdded({});
     }
 
     return (

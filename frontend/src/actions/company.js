@@ -29,7 +29,11 @@ export const addCompany = companyData => async (dispatch, getState) => {
     try {
         const userId = getState().auth.user._id;
         const body = JSON.stringify({ userId, ...companyData });
-        await axios.post(addUrl, body, httpConfig);
+        const company = await axios.post(addUrl, body, httpConfig);
+        dispatch({
+            type: ADD_COMPANY,
+            payload: company.data
+        });
         dispatch(setAlert(`success`, `company added successfully`));
     } catch (err) {
         const error = err.response && err.response.data.error;
@@ -37,8 +41,4 @@ export const addCompany = companyData => async (dispatch, getState) => {
             dispatch(setAlert(`failure`, error));
         }
     }
-    dispatch({
-        type: ADD_COMPANY,
-        payload: companyData
-    });
 };

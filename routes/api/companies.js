@@ -88,7 +88,7 @@ router.post('/add', async (req, res) => {
             last_inq_on
         });
         await company.save();
-        res.json();
+        res.json(company);
     } catch (err) {
         // todo:
         console.error(err);

@@ -24,6 +24,7 @@ const Dashboard = ({ companies }) => {
             {addingCompany ? (
                 <CompanyForm
                     company={newCompany}
+                    companyAdded={companyAdded}
                     setNewCompany={setNewCompany}
                 />
             ) : (

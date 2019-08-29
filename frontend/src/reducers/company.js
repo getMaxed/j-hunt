@@ -18,8 +18,10 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
         case ADD_COMPANY:
-            console.log(`action: add company`, payload);
-            return state;
+            return {
+                ...state,
+                list: [...state.list, payload]
+            };
         case UPDATE_COMPANY:
             console.log(`action: update company`);
         default:
