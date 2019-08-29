@@ -28,11 +28,11 @@ export default (state = initialState, action) => {
             };
         case REG_SUCCESS:
         case LOGIN_SUCCESS:
-            localStorage.setItem(`token`, payload);
+            localStorage.setItem(`token`, payload.token);
             return {
                 ...state,
                 isAuthenticated: true,
-                token: payload
+                ...payload
             };
         case AUTH_FAILURE:
         case REG_FAILURE:
@@ -45,8 +45,10 @@ export default (state = initialState, action) => {
                 isAuthenticated: false
             };
         case LOGOUT:
+            localStorage.removeItem(`token`);
             return {
                 ...state,
+                token: null,
                 isAuthenticated: false
             };
         default:

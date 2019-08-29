@@ -46,7 +46,14 @@ router.post(`/`, async (req, res) => {
                 if (err) {
                     console.error(err);
                 } else {
-                    res.json({ token });
+                    const { _id, username } = user;
+                    res.json({
+                        token,
+                        user: {
+                            _id,
+                            username
+                        }
+                    });
                 }
             }
         );

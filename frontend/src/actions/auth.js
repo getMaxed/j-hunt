@@ -53,10 +53,12 @@ export const login = (username, password) => async dispatch => {
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(loginUrl, body, httpConfig);
+        console.log('login data', res.data);
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: res.data.token
+            payload: res.data
         });
+        dispatch(loadCompanies());
         dispatch(setAlert(`success`, `user logged in`));
     } catch (err) {
         dispatch({
@@ -80,9 +82,10 @@ export const register = (username, password) => async dispatch => {
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(registerUrl, body, httpConfig);
+        console.log('register data', res.data);
         dispatch({
             type: REG_SUCCESS,
-            payload: res.data.token
+            payload: res.data
         });
         dispatch(setAlert(`success`, `user registered`));
     } catch (err) {
