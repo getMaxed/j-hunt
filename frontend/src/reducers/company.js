@@ -1,9 +1,9 @@
 import {
     LOAD_COMPANIES,
-    ADD_COMPANY_SUCCESS,
+    ADD_COMPANY,
     SET_ADDING_COMPANY,
-    ADD_COMPANY_FAILURE,
-    UPDATE_COMPANY
+    UPDATE_COMPANY,
+    CLEAR_COMPANIES
 } from '../actions';
 
 const initialState = {
@@ -28,19 +28,18 @@ export default (state = initialState, action) => {
                 ...state,
                 adding: payload
             };
-        case ADD_COMPANY_SUCCESS:
+        case ADD_COMPANY:
             return {
                 ...state,
                 active: [...state.active, payload],
                 adding: null
             };
-        case ADD_COMPANY_FAILURE:
-            return {
-                ...state,
-                isError: true
-            };
         case UPDATE_COMPANY:
-            console.log(`action: update company`);
+            return console.log(`action: update company`);
+        case CLEAR_COMPANIES:
+            return {
+                ...initialState
+            };
         default:
             return state;
     }

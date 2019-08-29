@@ -8,7 +8,8 @@ import {
     REG_FAILURE,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
-    LOGOUT
+    LOGOUT,
+    CLEAR_COMPANIES
 } from './index';
 
 const httpConfig = {
@@ -53,7 +54,6 @@ export const login = (username, password) => async dispatch => {
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(loginUrl, body, httpConfig);
-        console.log('login data', res.data);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data
@@ -75,6 +75,9 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     });
+    dispatch({
+        type: CLEAR_COMPANIES
+    });
     dispatch(setAlert(`info`, `user logged out`));
 };
 
@@ -82,7 +85,6 @@ export const register = (username, password) => async dispatch => {
     const body = JSON.stringify({ username, password });
     try {
         const res = await axios.post(registerUrl, body, httpConfig);
-        console.log('register data', res.data);
         dispatch({
             type: REG_SUCCESS,
             payload: res.data

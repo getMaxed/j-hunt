@@ -13,8 +13,6 @@ router.post('/', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-    // trg
-    console.log(req.body);
     const {
         userId,
         company_name,
@@ -66,7 +64,6 @@ router.post('/add', async (req, res) => {
 
     const company_name_slug = slugify(company_name);
     const intermediary_slug = slugify(intermediary);
-    console.log('success');
 
     try {
         const company = await new Company({

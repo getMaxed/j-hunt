@@ -50,7 +50,6 @@ router.post(`/`, async (req, res) => {
                 } else {
                     // trg
                     const { _id, username } = user;
-                    console.log(`trg`, _id, username);
                     res.json({
                         token,
                         user: {

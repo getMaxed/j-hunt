@@ -41,7 +41,6 @@ export default function SearchBar({
     function handleSubmit(e) {
         e.preventDefault();
         const company = name ? { name, isIntermediary } : false;
-        console.log(company);
         setAddingCompany(company);
     }
 
