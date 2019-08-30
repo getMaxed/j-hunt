@@ -13,7 +13,11 @@ export default function Company({ company, isEven, width }) {
     const firstInq = formatDistanceToNow(new Date(company.first_inq_on), {
         addSuffix: true
     });
-    const lastInq = formatDistanceToNow(new Date(company.first_inq_on));
+    const lastInq =
+        company.last_inq_on &&
+        formatDistanceToNow(new Date(company.last_inq_on), {
+            addSuffix: true
+        });
     return (
         <tr
             style={{
@@ -26,7 +30,7 @@ export default function Company({ company, isEven, width }) {
             <Td width="80px">{company.stage}</Td>
             <Td>{company.note}</Td>
             <Td width="140px">{firstInq}</Td>
-            <Td width="140px">{company.last_inq_on}</Td>
+            <Td width="140px">{lastInq}</Td>
             <Td>{company.stage_inq_count}</Td>
         </tr>
     );

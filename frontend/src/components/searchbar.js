@@ -1,47 +1,65 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { slugify } from '../utils';
 
-const companyList = [
-    {
-        name: 'facebook',
-        isIntermediary: false
-    },
-    {
-        name: 'google',
-        isIntermediary: false
-    },
-    {
-        name: 'talentsearch',
-        isIntermediary: true
-    },
-    {
-        name: 'talented',
-        isIntermediary: true
-    },
-    {
-        name: 'talio',
-        isIntermediary: true
-    }
-];
+const SuggList = styled.ul`
+    list-style: 'none';
+    padding: 0;
+    margin-top: 10px;
+`;
+
+const Suggestion = styled.li`
+    list-style: 'none';
+    color: ${props => (props.isFailed ? 'red' : '')};
+`;
 
 export default function SearchBar({
     setAddingCompany,
-    activeCompanies,
-    failedCompanies
+    activeCompanies: active,
+    failedCompanies: failed
 }) {
     const [name, setName] = useState('');
     const [isIntermediary, setIsIntermediary] = useState(false);
-    const [savedCompanies, setSavedCompanies] = useState([]);
+    const [activeCompanies, setActiveCompanies] = useState([]);
+    const [failedCompanies, setFailedCompanies] = useState([]);
+    const suggestActive = activeCompanies.length > 0 && name.length > 2;
+    const suggestFailed = failedCompanies.length > 0 && name.length > 2;
+    const suggestions =
+        name && (activeCompanies.length > 0 || failedCompanies.length > 0);
 
     function handleInputChange(e) {
         setName(e.target.value);
-        const companies = companyList.filter(c => c.name.indexOf(name) >= 0);
-        setSavedCompanies(companies);
+        setActiveCompanies(findMatching(active));
+        setFailedCompanies(findMatching(failed));
+
+        function findMatching(arr) {
+            return arr.filter(
+                c =>
+                    c.company_name_slug.indexOf(slugify(name)) >= 0 ||
+                    c.intermediary_slug.indexOf(slugify(name)) >= 0
+            );
+        }
     }
 
     function handleSubmit(e) {
         e.preventDefault();
         const company = name ? { name, isIntermediary } : false;
         setAddingCompany(company);
+    }
+
+    function renderCompanies(isFailed = false) {
+        const companies = [activeCompanies, failedCompanies];
+        return (
+            <>
+                {companies[+isFailed].map(c => (
+                    <Suggestion key={Math.random()} isFailed={isFailed}>
+                        {c.company_name ? `(C): ${c.company_name};` : ''}
+                        &nbsp;
+                        {c.intermediary ? `(i): ${c.intermediary}` : ''}
+                    </Suggestion>
+                ))}
+            </>
+        );
     }
 
     return (
@@ -54,14 +72,11 @@ export default function SearchBar({
                 value={name}
                 onChange={e => handleInputChange(e)}
             />
-            {savedCompanies.length > 0 && name && (
-                <ul>
-                    {savedCompanies.map(c => (
-                        <li style={{ listStyle: 'none' }} key={Math.random()}>
-                            {c.name}
-                        </li>
-                    ))}
-                </ul>
+            {suggestions && (
+                <SuggList>
+                    {suggestActive && renderCompanies()}
+                    {suggestFailed && renderCompanies(true)}
+                </SuggList>
             )}
             <br />
             <label htmlFor="intermediary">Check if intermediary</label>

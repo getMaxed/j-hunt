@@ -15,25 +15,16 @@ export const loadCompanies = () => async (dispatch, getState) => {
         const userId = getState().auth.user._id;
         const body = JSON.stringify({ userId });
         const res = await axios.post(loadUrl, body, httpConfig);
+
         const companies = res.data.reduce(
-            (acc, curr) => {
-                if (!curr.failed_on) {
-                    acc[0].push(curr);
-                    return acc;
-                } else {
-                    acc[1].push(curr);
-                    return acc;
-                }
-            },
+            (acc, curr) => (acc[+isNaN(curr.failed_on)].push(curr), acc),
             [[], []]
         );
-
         dispatch({
             type: LOAD_COMPANIES,
             payload: companies
         });
     } catch (err) {
-        // todo: handle errors
         console.error(err);
     }
 };
