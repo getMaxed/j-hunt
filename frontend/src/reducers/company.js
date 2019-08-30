@@ -18,9 +18,11 @@ export default (state = initialState, action) => {
 
     switch (type) {
         case LOAD_COMPANIES:
+            const [active, failed] = payload;
             return {
                 ...state,
-                active: payload,
+                active,
+                failed,
                 isLoading: false
             };
         case SET_ADDING_COMPANY:

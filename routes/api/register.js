@@ -48,7 +48,6 @@ router.post(`/`, async (req, res) => {
                 if (err) {
                     console.error(err);
                 } else {
-                    // trg
                     const { _id, username } = user;
                     res.json({
                         token,
