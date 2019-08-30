@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { slugify } from '../utils';
 import { ADD_COMPANY, LOAD_COMPANIES, SET_ADDING_COMPANY } from './index';
 import { setAlert } from './alert';
 
@@ -30,6 +31,9 @@ export const loadCompanies = () => async (dispatch, getState) => {
 };
 
 export const addCompany = companyData => async (dispatch, getState) => {
+    if (companyExists())
+        return dispatch(setAlert(`failure`, `company already exists`));
+
     try {
         const userId = getState().auth.user._id;
         const body = JSON.stringify({ userId, ...companyData });
@@ -40,10 +44,25 @@ export const addCompany = companyData => async (dispatch, getState) => {
         });
         dispatch(setAlert(`success`, `company added successfully`));
     } catch (err) {
+        console.error(err);
         const error = err.response && err.response.data.error;
         if (error) {
             dispatch(setAlert(`failure`, error));
+        } else {
+            dispatch(setAlert(`failure`, `some error: coudn't submit`));
         }
+    }
+
+    function companyExists() {
+        const getCompany = idx => Object.entries(getState().company)[idx][1];
+        return [...getCompany(0), ...getCompany(1)].some(
+            c =>
+                (companyData.company_name &&
+                    c.company_name_slug ===
+                        slugify(companyData.company_name)) ||
+                (companyData.intermediary &&
+                    c.intermediary_slug === slugify(companyData.intermediary))
+        );
     }
 };
 
