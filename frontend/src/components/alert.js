@@ -15,7 +15,15 @@ const Alert = ({ type, msg }) => {
         }
     };
     return (
-        <div style={{ color: color(type), position: 'fixed', left: '250px' }}>
+        <div
+            style={{
+                color: color(type),
+                position: 'fixed',
+                left: '250px',
+                fontWeight: 'bold',
+                fontSize: '18px'
+            }}
+        >
             {msg}
         </div>
     );

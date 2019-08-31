@@ -6,6 +6,7 @@ const SuggList = styled.ul`
     list-style: 'none';
     padding: 0;
     margin-top: 10px;
+    margin-bottom: 0;
 `;
 
 const Suggestion = styled.li`

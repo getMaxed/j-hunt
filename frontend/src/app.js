@@ -5,34 +5,27 @@ import store from './store';
 import AuthForm from './components/authForm';
 import Alert from './components/alert';
 import Logout from './components/logout';
-import Modal from './components/modal';
 import Dashboard from './components/dashboard';
 import { loadUser } from './actions/auth';
 
-let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
+let App = ({ isAuthenticated, isAlert }) => {
     useEffect(() => {
         store.dispatch(loadUser());
     }, []);
 
     return (
         <>
-            {!isModalOpen ? (
+            {isAuthenticated ? (
                 <>
-                    {isAuthenticated ? (
-                        <>
-                            {isAlert && <Alert />}
-                            <Logout />
-                            <Dashboard />
-                        </>
-                    ) : (
-                        <>
-                            {isAlert && <Alert />}
-                            <AuthForm />
-                        </>
-                    )}
+                    {isAlert && <Alert />}
+                    <Logout />
+                    <Dashboard />
                 </>
             ) : (
-                <Modal />
+                <>
+                    {isAlert && <Alert />}
+                    <AuthForm />
+                </>
             )}
         </>
     );
@@ -46,7 +39,6 @@ let App = ({ isModalOpen, isAuthenticated, isAlert }) => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isModalOpen: state.modal.isOpen,
     isAlert: state.alert.type
 });
 

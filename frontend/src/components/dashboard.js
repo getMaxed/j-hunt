@@ -4,11 +4,14 @@ import { connect } from 'react-redux';
 import { setAddingCompany, addCompany } from '../actions/company';
 import CompanyForm from './companyForm';
 import Company from './company';
+import Modal from './modal';
 import SearchBar from './searchbar';
 
 const Table = styled.table`
     margin-top: 12px;
     border-collapse: collapse;
+    /* width: 100%; */
+    /* table-layout: fixed; */
 `;
 
 const THead = styled.th`
@@ -20,7 +23,8 @@ const Dashboard = ({
     failedCompanies,
     addingCompany,
     setAddingCompany,
-    addCompany
+    addCompany,
+    isModalOpen
 }) => {
     return (
         <>
@@ -61,6 +65,7 @@ const Dashboard = ({
                     </tbody>
                 </Table>
             )}
+            {isModalOpen && <Modal />}
         </>
     );
 };
@@ -68,7 +73,8 @@ const Dashboard = ({
 const mapStateToProps = state => ({
     activeCompanies: state.company.active,
     failedCompanies: state.company.failed,
-    addingCompany: state.company.adding
+    addingCompany: state.company.adding,
+    isModalOpen: state.modal.isOpen
 });
 
 export default connect(
