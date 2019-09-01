@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { login, register } from '../actions/auth';
 import { setAlert } from '../actions/alert';
-import { connect } from 'react-redux';
 
 const Form = ({ login, register, setAlert, isLoading }) => {
     const emptyInput = {
@@ -9,8 +9,8 @@ const Form = ({ login, register, setAlert, isLoading }) => {
         password: '',
         password2: ''
     };
-    const [isLoggingIn, setIsLoggingIn] = useState(true);
-    const [inputData, setInputData] = useState(emptyInput);
+    const [isLoggingIn, setIsLoggingIn] = React.useState(true);
+    const [inputData, setInputData] = React.useState(emptyInput);
     const { username, password, password2 } = inputData;
     const submitBtnValue = isLoggingIn ? `Log In` : `Sign Up`;
 

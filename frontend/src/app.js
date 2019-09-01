@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { Provider } from 'react-redux';
-import { connect } from 'react-redux';
+import React from 'react';
+import { Provider, connect } from 'react-redux';
+import { loadUser } from './actions/auth';
 import store from './store';
 import AuthForm from './components/authForm';
 import Alert from './components/alert';
 import Logout from './components/logout';
 import Dashboard from './components/dashboard';
-import { loadUser } from './actions/auth';
 
 let App = ({ isAuthenticated, isAlert }) => {
-    useEffect(() => {
+    React.useEffect(() => {
         store.dispatch(loadUser());
     }, []);
 

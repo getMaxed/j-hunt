@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function CompanyForm({ addingCompany, addCompany }) {
     const { name, isIntermediary } = addingCompany;
@@ -13,18 +13,8 @@ export default function CompanyForm({ addingCompany, addCompany }) {
         first_inq_on: '',
         last_inq_on: ''
     };
-    const [inputData, setInputData] = useState(emptyInput);
-    const {
-        company_name,
-        intermediary,
-        link,
-        source,
-        stage,
-        stage_inq_count,
-        note,
-        first_inq_on,
-        last_inq_on
-    } = inputData;
+    const [inputData, setInputData] = React.useState(emptyInput);
+    const d = inputData; // reference (for readability)
 
     function handleInputChange(e) {
         setInputData({ ...inputData, [e.target.name]: e.target.value });
@@ -46,7 +36,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="company_name"
                 id="company_name"
-                value={company_name}
+                value={d.company_name}
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />
@@ -55,7 +45,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="intermediary"
                 id="intermediary"
-                value={intermediary}
+                value={d.intermediary}
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />
@@ -64,7 +54,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="link"
                 id="link"
-                value={link}
+                value={d.link}
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />
@@ -73,7 +63,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="source"
                 id="source"
-                value={source}
+                value={d.source}
                 list="sources"
                 onChange={e => handleInputChange(e)}
             />
@@ -88,7 +78,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
             <label htmlFor="stage">Stage</label> <br />
             <select
                 id="stage"
-                value={stage}
+                value={d.stage}
                 onChange={e => handleSelectChange(e, 'stage')}
             >
                 <option name="applied" value="applied">
@@ -103,6 +93,9 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 <option name="second_interviewed" value="second_interviewed">
                     Second Interiewed
                 </option>
+                <option name="failed" value="failed">
+                    Failed
+                </option>
             </select>
             <br /> <br />
             <label htmlFor="stage_inq_count">
@@ -111,7 +104,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
             <br />
             <select
                 id="stage_inq_count"
-                value={stage_inq_count}
+                value={d.stage_inq_count}
                 onChange={e => handleSelectChange(e, 'stage_inq_count')}
             >
                 <option name="0" value="0">
@@ -134,7 +127,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 id="note"
                 cols="30"
                 rows="10"
-                value={note}
+                value={d.note}
                 onChange={e => handleInputChange(e)}
             ></textarea>
             <br /> <br />
@@ -143,7 +136,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="first_inq_on"
                 id="first_inq_on"
-                value={first_inq_on}
+                value={d.first_inq_on}
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />
@@ -152,7 +145,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
                 type="text"
                 name="last_inq_on"
                 id="last_inq_on"
-                value={last_inq_on}
+                value={d.last_inq_on}
                 onChange={e => handleInputChange(e)}
             />
             <br /> <br />

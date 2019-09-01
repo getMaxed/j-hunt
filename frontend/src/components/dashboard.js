@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { connect } from 'react-redux';
 import { setAddingCompany, addCompany } from '../actions/company';
 import CompanyForm from './companyForm';
 import Company from './company';
 import Modal from './modal';
 import SearchBar from './searchbar';
-
-const Table = styled.table`
-    margin-top: 12px;
-    border-collapse: collapse;
-    /* width: 100%; */
-    /* table-layout: fixed; */
-`;
-
-const THead = styled.th`
-    text-align: left;
-`;
+import {
+    DashboardTable as StyledTable,
+    DashboardTh as StyledTh
+} from './styled';
 
 const Dashboard = ({
     activeCompanies,
@@ -41,17 +33,17 @@ const Dashboard = ({
                 />
             )}
             {!addingCompany && activeCompanies.length > 0 && (
-                <Table>
+                <StyledTable>
                     <thead>
                         <tr>
-                            <THead>Company</THead>
-                            <THead>Intermediary</THead>
-                            <THead>Source</THead>
-                            <THead>Stage</THead>
-                            <THead>Note</THead>
-                            <THead>First Inquiry</THead>
-                            <THead>Latest Inquiry</THead>
-                            <THead>Inq</THead>
+                            <StyledTh>Company</StyledTh>
+                            <StyledTh>Intermediary</StyledTh>
+                            <StyledTh>Source</StyledTh>
+                            <StyledTh>Stage</StyledTh>
+                            <StyledTh>Note</StyledTh>
+                            <StyledTh>First Inquiry</StyledTh>
+                            <StyledTh>Latest Inquiry</StyledTh>
+                            <StyledTh>Inq</StyledTh>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +55,7 @@ const Dashboard = ({
                             />
                         ))}
                     </tbody>
-                </Table>
+                </StyledTable>
             )}
             {isModalOpen && <Modal />}
         </>

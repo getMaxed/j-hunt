@@ -1,33 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { login, register } from '../actions/auth';
+import { getAlertColor } from '../utils';
+import { Alert as StyledAlert } from './styled';
 
-const Alert = ({ type, msg }) => {
-    const color = type => {
-        if (type === `success`) {
-            return `green`;
-        }
-        if (type === `failure`) {
-            return `red`;
-        }
-        if (type === `info`) {
-            return `grey`;
-        }
-    };
-    return (
-        <div
-            style={{
-                color: color(type),
-                position: 'fixed',
-                left: '250px',
-                fontWeight: 'bold',
-                fontSize: '18px'
-            }}
-        >
-            {msg}
-        </div>
-    );
-};
+const Alert = ({ type, msg }) => (
+    <StyledAlert color={getAlertColor(type)}>{msg}</StyledAlert>
+);
 
 const mapStateToProps = state => ({
     type: state.alert.type,

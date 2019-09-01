@@ -1,28 +1,16 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { slugify } from '../utils';
-
-const SuggList = styled.ul`
-    list-style: 'none';
-    padding: 0;
-    margin-top: 10px;
-    margin-bottom: 0;
-`;
-
-const Suggestion = styled.li`
-    list-style: 'none';
-    color: ${props => (props.isFailed ? 'red' : '')};
-`;
+import { SuggestionList, Suggestion } from './styled';
 
 export default function SearchBar({
     setAddingCompany,
     activeCompanies: active,
     failedCompanies: failed
 }) {
-    const [name, setName] = useState('');
-    const [isIntermediary, setIsIntermediary] = useState(false);
-    const [activeCompanies, setActiveCompanies] = useState([]);
-    const [failedCompanies, setFailedCompanies] = useState([]);
+    const [name, setName] = React.useState('');
+    const [isIntermediary, setIsIntermediary] = React.useState(false);
+    const [activeCompanies, setActiveCompanies] = React.useState([]);
+    const [failedCompanies, setFailedCompanies] = React.useState([]);
     const suggestActive = activeCompanies.length > 0 && name.length > 2;
     const suggestFailed = failedCompanies.length > 0 && name.length > 2;
     const suggestions =
@@ -74,18 +62,16 @@ export default function SearchBar({
                 onChange={e => handleInputChange(e)}
             />
             {suggestions && (
-                <SuggList>
+                <SuggestionList>
                     {suggestActive && renderCompanies()}
                     {suggestFailed && renderCompanies(true)}
-                </SuggList>
+                </SuggestionList>
             )}
             <br />
             <label htmlFor="intermediary">Check if intermediary</label>
             <input
                 type="checkbox"
                 id="intermediary"
-                name="vehicle1"
-                value="Bike"
                 onChange={e => setIsIntermediary(e.target.checked)}
             />
             <br />

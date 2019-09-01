@@ -44,7 +44,6 @@ export const addCompany = companyData => async (dispatch, getState) => {
         });
         dispatch(setAlert(`success`, `company added successfully`));
     } catch (err) {
-        console.error(err);
         const error = err.response && err.response.data.error;
         if (error) {
             dispatch(setAlert(`failure`, error));
