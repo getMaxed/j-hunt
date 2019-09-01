@@ -20,3 +20,17 @@ export const getAlertColor = type => {
         return `grey`;
     }
 };
+
+/*
+|--------------------------------------------------------------------------
+| HARDCODE
+|--------------------------------------------------------------------------
+*/
+
+export const stageList = [
+    'applied',
+    'screened',
+    'interviewed',
+    'second_interviewed',
+    `failed`
+];

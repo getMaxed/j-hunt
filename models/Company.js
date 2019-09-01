@@ -26,7 +26,13 @@ const CompanySchema = new mongoose.Schema({
     stage: {
         type: String,
         // from each inquire
-        enum: ['applied', 'screened', 'interviewed', 'second_interviewed']
+        enum: [
+            'applied',
+            'screened',
+            'interviewed',
+            'second_interviewed',
+            `failed`
+        ]
     },
     stage_inq_count: {
         // null when moving up the stage

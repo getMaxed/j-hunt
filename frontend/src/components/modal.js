@@ -1,5 +1,6 @@
 import React from 'react';
 import { Modal as StyledModal } from './styled';
+import { stageList } from '../utils';
 
 export default function Modal({
     closeModal: close,
@@ -14,12 +15,45 @@ export default function Modal({
         updateCompany(value);
     }
 
-    // handle rendering here
+    const renderText = () =>
+        type !== `edit` &&
+        (type === `inq`
+            ? `Making inquiry #${value++}`
+            : `Changing stage to ${stageList[stageList.indexOf(value) + 1]}`);
 
     return (
-        <>
-            <StyledModal>
+        <StyledModal>
+            {!type === `view` ? (
                 <form onSubmit={e => handleSubmit(e)}>
+                    {type === `edit` ? (
+                        target === `note` ? (
+                            // todo: add labels
+                            <textarea
+                                cols="30"
+                                rows="10"
+                                value={value}
+                            ></textarea>
+                        ) : (
+                            <input type="text" value={value} />
+                        )
+                    ) : (
+                        <>
+                            <h2>{renderText()}</h2>
+                            <textarea
+                                cols="30"
+                                rows="10"
+                                // todo: get `note` value
+                                // value={}
+                            ></textarea>
+                            {target === `stage` && (
+                                <input
+                                    type="checkbox"
+                                    style={{ color: `red` }}
+                                />
+                            )}
+                        </>
+                    )}
+                    {/* permanent */}
                     <input
                         type="text"
                         value={value}
@@ -32,7 +66,9 @@ export default function Modal({
                     />
                     <button onClick={() => close()}>Cancel</button>
                 </form>
-            </StyledModal>
-        </>
+            ) : (
+                <p>View</p>
+            )}
+        </StyledModal>
     );
 }
