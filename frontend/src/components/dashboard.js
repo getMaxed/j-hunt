@@ -48,13 +48,13 @@ const Dashboard = ({
                             <StyledTh>Inq</StyledTh>
                         </tr>
                     </thead>
-                    <tbody onClick={e => console.log(e.target.name)}>
+                    <tbody>
                         {activeCompanies.map((c, i) => (
                             <Company
                                 key={Math.random()}
                                 company={c}
                                 isEven={i % 2 === 0}
-                                name="name"
+                                openModal={openModal}
                             />
                         ))}
                     </tbody>
