@@ -1,7 +1,7 @@
 import { OPEN_MODAL, CLOSE_MODAL } from '../actions';
 
 const initialState = {
-    isOpen: true,
+    isOpen: false,
     type: null,
     target: null,
     value: null

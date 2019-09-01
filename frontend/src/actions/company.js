@@ -71,3 +71,7 @@ export const setAddingCompany = name => async dispatch => {
         payload: name
     });
 };
+
+export const updateCompany = () => dispatch => {
+    console.log(123);
+};

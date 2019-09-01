@@ -1,33 +1,38 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { closeModal } from '../actions/modal';
 import { Modal as StyledModal } from './styled';
 
-const Modal = ({ closeModal }) => {
+export default function Modal({
+    closeModal: close,
+    updateCompany,
+    type,
+    target,
+    value: v
+}) {
+    const [value, setValue] = React.useState(v);
     function handleSubmit(e) {
         e.preventDefault();
-
-        console.log(`submitted`);
+        updateCompany(value);
     }
+
+    // handle rendering here
 
     return (
         <>
             <StyledModal>
                 <form onSubmit={e => handleSubmit(e)}>
-                    <input type="text" name="" id="" />
-                    <input type="submit" value="Submit" />
-                    <button onClick={() => closeModal()}>Cancel</button>
+                    <input
+                        type="text"
+                        value={value}
+                        onChange={e => setValue(e.target.value)}
+                    />
+                    <input
+                        type="submit"
+                        value="Submit"
+                        onChange={e => setValue(e.target.value)}
+                    />
+                    <button onClick={() => close()}>Cancel</button>
                 </form>
             </StyledModal>
         </>
     );
-};
-
-const mapStateToProps = state => ({
-    //
-});
-
-export default connect(
-    mapStateToProps,
-    { closeModal }
-)(Modal);
+}

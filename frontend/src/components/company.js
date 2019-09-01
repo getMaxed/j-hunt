@@ -22,14 +22,14 @@ export default function Company({ company, isEven, openModal }) {
     return (
         <StyledTr isEven={isEven}>
             <StyledTd
-                onClick={() => openModal(`edit`, company_name)}
+                onClick={() => openModal(`edit`, `company_name`, company_name)}
                 width="170px"
             >
                 {company_name}
             </StyledTd>
             <StyledTd
                 width="170px"
-                onClick={() => openModal(`edit`, intermediary)}
+                onClick={() => openModal(`edit`, `intermediary`, intermediary)}
             >
                 {intermediary}
             </StyledTd>
@@ -38,16 +38,23 @@ export default function Company({ company, isEven, openModal }) {
             </StyledTd>
             <StyledTd
                 width="80px"
-                onClick={() => openModal(`changeStage`, stage)}
+                onClick={() => openModal(`changeStage`, `stage`, stage)}
             >
                 {stage}
             </StyledTd>
-            <StyledTd width="230px" onClick={() => openModal(`edit`, note)}>
+            <StyledTd
+                width="230px"
+                onClick={() => openModal(`edit`, `note`, note)}
+            >
                 {note}
             </StyledTd>
             <StyledTd width="120px">{firstInq}</StyledTd>
             <StyledTd width="120px">{lastInq}</StyledTd>
-            <StyledTd onClick={() => openModal(`inq`, stage_inq_count)}>
+            <StyledTd
+                onClick={() =>
+                    openModal(`inq`, `stage_inq_count`, stage_inq_count)
+                }
+            >
                 {stage_inq_count}
             </StyledTd>
         </StyledTr>

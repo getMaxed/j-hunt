@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setAddingCompany, addCompany } from '../actions/company';
-import { openModal } from '../actions/modal';
+import {
+    setAddingCompany,
+    addCompany,
+    updateCompany
+} from '../actions/company';
+import { openModal, closeModal } from '../actions/modal';
 import CompanyForm from './companyForm';
 import Company from './company';
 import Modal from './modal';
@@ -17,8 +21,13 @@ const Dashboard = ({
     addingCompany,
     setAddingCompany,
     addCompany,
+    updateCompany,
     isModalOpen,
-    openModal
+    openModal,
+    closeModal,
+    modalType,
+    modalTarget,
+    modalValue
 }) => {
     return (
         <>
@@ -60,7 +69,15 @@ const Dashboard = ({
                     </tbody>
                 </StyledTable>
             )}
-            {isModalOpen && <Modal />}
+            {isModalOpen && (
+                <Modal
+                    closeModal={closeModal}
+                    updateCompany={updateCompany}
+                    type={modalType}
+                    target={modalTarget}
+                    value={modalValue}
+                />
+            )}
         </>
     );
 };
@@ -69,10 +86,13 @@ const mapStateToProps = state => ({
     activeCompanies: state.company.active,
     failedCompanies: state.company.failed,
     addingCompany: state.company.adding,
-    isModalOpen: state.modal.isOpen
+    isModalOpen: state.modal.isOpen,
+    modalType: state.modal.type,
+    modalTarget: state.modal.target,
+    modalValue: state.modal.value
 });
 
 export default connect(
     mapStateToProps,
-    { setAddingCompany, addCompany, openModal }
+    { setAddingCompany, addCompany, openModal, closeModal, updateCompany }
 )(Dashboard);
