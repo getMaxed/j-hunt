@@ -14,3 +14,5 @@ export const CLEAR_COMPANIES = `CLEAR_COMPANIES`;
 export const UPDATE_COMPANY = `UPDATE_COMPANY`;
 export const GET_INQ = `GET_INQ`;
 export const UPDATE_INQ = `UPDATE_INQ`;
+export const OPEN_MODAL = `OPEN_MODAL`;
+export const CLOSE_MODAL = `CLOSE_MODAL`;

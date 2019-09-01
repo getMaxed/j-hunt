@@ -1,10 +1,29 @@
+import { OPEN_MODAL, CLOSE_MODAL } from '../actions';
+
 const initialState = {
     isOpen: true,
-    type: null
+    type: null,
+    target: null,
+    value: null
 };
 
 export default (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
+        case OPEN_MODAL:
+            return {
+                ...state,
+                isOpen: true,
+                ...payload
+            };
+        case CLOSE_MODAL:
+            return {
+                ...state,
+                isOpen: false,
+                type: null,
+                target: null,
+                value: null
+            };
         default:
             return state;
     }

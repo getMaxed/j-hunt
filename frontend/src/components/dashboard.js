@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { setAddingCompany, addCompany } from '../actions/company';
+import { openModal } from '../actions/modal';
 import CompanyForm from './companyForm';
 import Company from './company';
 import Modal from './modal';
@@ -16,7 +17,8 @@ const Dashboard = ({
     addingCompany,
     setAddingCompany,
     addCompany,
-    isModalOpen
+    isModalOpen,
+    openModal
 }) => {
     return (
         <>
@@ -46,12 +48,13 @@ const Dashboard = ({
                             <StyledTh>Inq</StyledTh>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody onClick={e => console.log(e.target.name)}>
                         {activeCompanies.map((c, i) => (
                             <Company
                                 key={Math.random()}
                                 company={c}
                                 isEven={i % 2 === 0}
+                                name="name"
                             />
                         ))}
                     </tbody>
@@ -71,5 +74,5 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-    { setAddingCompany, addCompany }
+    { setAddingCompany, addCompany, openModal }
 )(Dashboard);
