@@ -15,6 +15,8 @@ export default function Company({ company, isEven, openModal }) {
         last_inq_on
     } = company;
 
+    const xRefs = { company_name, intermediary, note };
+
     const firstInq = formatTimeDistance(first_inq_on);
     const lastInq = last_inq_on && formatTimeDistance(last_inq_on);
     const goto = url => window.open(url, '_blank');
@@ -22,14 +24,14 @@ export default function Company({ company, isEven, openModal }) {
     return (
         <StyledTr isEven={isEven}>
             <StyledTd
-                onClick={() => openModal(`edit`, `company_name`, company_name)}
+                onClick={() => openModal(`edit`, { company_name, xRefs })}
                 width="170px"
             >
                 {company_name}
             </StyledTd>
             <StyledTd
                 width="170px"
-                onClick={() => openModal(`edit`, `intermediary`, intermediary)}
+                onClick={() => openModal(`edit`, { intermediary, xRefs })}
             >
                 {intermediary}
             </StyledTd>
@@ -38,22 +40,20 @@ export default function Company({ company, isEven, openModal }) {
             </StyledTd>
             <StyledTd
                 width="80px"
-                onClick={() => openModal(`changeStage`, `stage`, stage)}
+                onClick={() => openModal(`changeStage`, { stage, xRefs })}
             >
                 {stage}
             </StyledTd>
             <StyledTd
                 width="230px"
-                onClick={() => openModal(`edit`, `note`, note)}
+                onClick={() => openModal(`edit`, { note, xRefs })}
             >
                 {note}
             </StyledTd>
             <StyledTd width="120px">{firstInq}</StyledTd>
             <StyledTd width="120px">{lastInq}</StyledTd>
             <StyledTd
-                onClick={() =>
-                    openModal(`inq`, `stage_inq_count`, stage_inq_count)
-                }
+                onClick={() => openModal(`inq`, { stage_inq_count, xRefs })}
             >
                 {stage_inq_count}
             </StyledTd>

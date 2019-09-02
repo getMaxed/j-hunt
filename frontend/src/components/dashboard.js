@@ -27,7 +27,9 @@ const Dashboard = ({
     closeModal,
     modalType,
     modalTarget,
-    modalValue
+    modalValue,
+    refNote,
+    refId
 }) => {
     return (
         <>
@@ -76,6 +78,8 @@ const Dashboard = ({
                     type={modalType}
                     target={modalTarget}
                     value={modalValue}
+                    refNote={refNote}
+                    refId={refId}
                 />
             )}
         </>
@@ -89,7 +93,9 @@ const mapStateToProps = state => ({
     isModalOpen: state.modal.isOpen,
     modalType: state.modal.type,
     modalTarget: state.modal.target,
-    modalValue: state.modal.value
+    modalValue: state.modal.value,
+    refNote: state.modal.refNote,
+    refId: state.modal.refId
 });
 
 export default connect(

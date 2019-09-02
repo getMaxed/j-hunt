@@ -30,6 +30,11 @@ export const Modal = styled.div`
         width: 24rem;
         border-radius: 0.5rem;
     }
+
+    textarea,
+    input[type='text'] {
+        margin-top: 3px;
+    }
 `;
 
 export const SuggestionList = styled.ul`

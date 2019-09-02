@@ -4,7 +4,9 @@ const initialState = {
     isOpen: false,
     type: null,
     target: null,
-    value: null
+    value: null,
+    refNote: null,
+    refId: null
 };
 
 export default (state = initialState, action) => {
@@ -19,10 +21,7 @@ export default (state = initialState, action) => {
         case CLOSE_MODAL:
             return {
                 ...state,
-                isOpen: false,
-                type: null,
-                target: null,
-                value: null
+                ...initialState
             };
         default:
             return state;
