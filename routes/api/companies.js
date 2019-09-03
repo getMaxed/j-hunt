@@ -88,8 +88,24 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.put('/update', async (req, res) => {
-    //
+router.post('/update', async (req, res) => {
+    const { refId, type, target, value, failed } = req.body;
+    if (type === `edit`) {
+        try {
+            const company = await Company.findOne({ _id: refId });
+            company[target] = value;
+            if (target === `company_name`) {
+                company.company_name_slug = slugify(value);
+            } else if (target === `intermediary`) {
+                company.intermediary_slug = slugify(value);
+            }
+            await company.save();
+            res.json(company);
+        } catch (err) {
+            // todo:
+            console.error(err);
+        }
+    }
 });
 
 module.exports = router;

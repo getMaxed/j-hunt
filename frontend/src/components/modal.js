@@ -20,15 +20,15 @@ export default function Modal({
             ? `Making inquiry #${value + 1}`
             : `Changing stage to ${stageList[stageList.indexOf(value) + 1]}`;
 
-    function handleSubmit(e) {
+    function handleSubmit(e, isFailed) {
         e.preventDefault();
-        updateCompany(value);
+        updateCompany({ refId, type, target, value, failed: isFailed });
     }
 
     return (
         <StyledModal>
             {type !== `view` ? (
-                <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={e => handleSubmit(e, failed)}>
                     {type === `edit` ? (
                         target === `note` ? (
                             <>
@@ -39,6 +39,7 @@ export default function Modal({
                                     cols="30"
                                     rows="5"
                                     value={value}
+                                    onChange={e => setValue(e.target.value)}
                                 ></textarea>
                                 <br /> <br />
                             </>
@@ -65,11 +66,11 @@ export default function Modal({
                                 cols="30"
                                 rows="5"
                                 value={refNote}
+                                onChange={e => setValue(e.target.value)}
                             ></textarea>
                             <br /> <br />
                             {target === `stage` && (
                                 <>
-                                    {/* <br /> */}
                                     <label
                                         htmlFor="failed"
                                         style={{ color: `red` }}

@@ -37,7 +37,13 @@ export default (state = initialState, action) => {
                 adding: null
             };
         case UPDATE_COMPANY:
-            return console.log(`action: update company`);
+            const idx = state.active.findIndex(c => c._id === payload._id);
+            const companies = state.active.slice();
+            companies[idx] = payload;
+            return {
+                ...state,
+                active: companies
+            };
         case CLEAR_COMPANIES:
             return {
                 ...initialState

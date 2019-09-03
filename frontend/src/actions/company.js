@@ -1,7 +1,13 @@
 import axios from 'axios';
 import { slugify } from '../utils';
-import { ADD_COMPANY, LOAD_COMPANIES, SET_ADDING_COMPANY } from './index';
 import { setAlert } from './alert';
+import { closeModal } from './modal';
+import {
+    ADD_COMPANY,
+    LOAD_COMPANIES,
+    SET_ADDING_COMPANY,
+    UPDATE_COMPANY
+} from './index';
 
 const httpConfig = {
     headers: {
@@ -10,6 +16,7 @@ const httpConfig = {
 };
 const loadUrl = `http://localhost:5000/api/companies`;
 const addUrl = `http://localhost:5000/api/companies/add`;
+const updateUrl = `http://localhost:5000/api/companies/update`;
 
 export const loadCompanies = () => async (dispatch, getState) => {
     try {
@@ -72,6 +79,17 @@ export const setAddingCompany = name => async dispatch => {
     });
 };
 
-export const updateCompany = () => dispatch => {
-    console.log(123);
+export const updateCompany = data => async dispatch => {
+    const body = JSON.stringify(data);
+    try {
+        const { data } = await axios.post(updateUrl, body, httpConfig);
+        dispatch({
+            type: UPDATE_COMPANY,
+            payload: data
+        });
+        dispatch(closeModal());
+        dispatch(setAlert(`success`, `company updated successfully`));
+    } catch (err) {
+        console.error(err);
+    }
 };
