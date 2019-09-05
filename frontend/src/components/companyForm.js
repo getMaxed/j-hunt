@@ -1,6 +1,10 @@
 import React from 'react';
 
-export default function CompanyForm({ addingCompany, addCompany }) {
+export default function CompanyForm({
+    addingCompany,
+    addCompany,
+    setAddingCompany
+}) {
     const { name, isIntermediary } = addingCompany;
     const emptyInput = {
         company_name: isIntermediary ? '' : name,
@@ -150,6 +154,7 @@ export default function CompanyForm({ addingCompany, addCompany }) {
             />
             <br /> <br />
             <input type="submit" value="Submit" />
+            <button onClick={() => setAddingCompany(null)}>Cancel</button>
         </form>
     );
 }

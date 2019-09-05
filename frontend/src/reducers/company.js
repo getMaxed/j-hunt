@@ -19,6 +19,11 @@ export default (state = initialState, action) => {
     switch (type) {
         case LOAD_COMPANIES:
             const [active, failed] = payload;
+            const time = t => new Date(t).getTime();
+
+            active.sort((a, b) => time(a.first_inq_on) - time(b.first_inq_on));
+            failed.sort((a, b) => time(b.failed_on) - time(a.failed_on));
+
             return {
                 ...state,
                 active,

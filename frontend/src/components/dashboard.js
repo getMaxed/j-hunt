@@ -35,6 +35,7 @@ const Dashboard = ({
         <>
             {addingCompany ? (
                 <CompanyForm
+                    setAddingCompany={setAddingCompany}
                     addingCompany={addingCompany}
                     addCompany={addCompany}
                 />

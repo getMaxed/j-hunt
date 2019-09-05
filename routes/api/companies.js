@@ -65,8 +65,6 @@ router.post('/add', async (req, res) => {
     const company_name_slug = slugify(company_name);
     const intermediary_slug = slugify(intermediary);
 
-    // const company = await Company.findOne({ _id: userId });
-
     try {
         const company = await new Company({
             user: userId,
