@@ -31,6 +31,5 @@ export const stageList = [
     'applied',
     'screened',
     'interviewed',
-    'second_interviewed',
-    `failed`
+    'second_interviewed'
 ];

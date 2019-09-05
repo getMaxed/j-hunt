@@ -37,12 +37,21 @@ export default (state = initialState, action) => {
                 adding: null
             };
         case UPDATE_COMPANY:
+            const activeCompanies = [...state.active];
+            const failedCompanies = [...state.failed];
             const idx = state.active.findIndex(c => c._id === payload._id);
-            const companies = state.active.slice();
-            companies[idx] = payload;
+
+            if (payload.stage === `failed`) {
+                activeCompanies.splice(idx, 1);
+                failedCompanies.unshift(payload);
+            } else {
+                activeCompanies[idx] = payload;
+            }
+
             return {
                 ...state,
-                active: companies
+                active: activeCompanies,
+                failed: failedCompanies
             };
         case CLEAR_COMPANIES:
             return {

@@ -83,6 +83,7 @@ export const updateCompany = data => async dispatch => {
     const body = JSON.stringify(data);
     try {
         const { data } = await axios.post(updateUrl, body, httpConfig);
+        console.log(data);
         dispatch({
             type: UPDATE_COMPANY,
             payload: data

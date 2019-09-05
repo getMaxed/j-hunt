@@ -11,19 +11,24 @@ export default function Modal({
     refNote,
     refId
 }) {
-    const [value, setValue] = React.useState(v);
+    const [value, setValue] = React.useState(type === `edit` ? v : refNote);
     const [failed, setFailed] = React.useState(false);
     const textLabel =
         target === `company_name` ? `a Company name` : `an Intermediary name`;
+    const nextStage = 4 > stageList.indexOf(v);
     const textareaLabel =
         type === `inq`
-            ? `Making inquiry #${value + 1}`
-            : `Changing stage to ${stageList[stageList.indexOf(value) + 1]}`;
+            ? `Making new inquiry`
+            : nextStage
+            ? `Changing stage to ${stageList[stageList.indexOf(v) + 1]}`
+            : `This is the last stage allowed`;
 
     function handleSubmit(e, isFailed) {
         e.preventDefault();
         updateCompany({ refId, type, target, value, failed: isFailed });
     }
+
+    // type === `inq` || type === `changeStage` && setValue
 
     return (
         <StyledModal>
@@ -32,10 +37,9 @@ export default function Modal({
                     {type === `edit` ? (
                         target === `note` ? (
                             <>
-                                <label htmlFor={target}>Edit a Note</label>{' '}
-                                <br />
+                                <label htmlFor="note">Edit a Note</label> <br />
                                 <textarea
-                                    id={target}
+                                    id="note"
                                     cols="30"
                                     rows="5"
                                     value={value}
@@ -45,12 +49,12 @@ export default function Modal({
                             </>
                         ) : (
                             <>
-                                <label htmlFor={target}>
+                                <label htmlFor="input">
                                     {`Edit ${textLabel}`}
                                 </label>{' '}
                                 <br />
                                 <input
-                                    id={target}
+                                    id="input"
                                     type="text"
                                     value={value}
                                     onChange={e => setValue(e.target.value)}
@@ -65,7 +69,7 @@ export default function Modal({
                                 id="note"
                                 cols="30"
                                 rows="5"
-                                value={refNote}
+                                value={value}
                                 onChange={e => setValue(e.target.value)}
                             ></textarea>
                             <br /> <br />

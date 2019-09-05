@@ -90,9 +90,10 @@ router.post('/add', async (req, res) => {
 
 router.post('/update', async (req, res) => {
     const { refId, type, target, value, failed } = req.body;
+    const company = await Company.findOne({ _id: refId });
+
     if (type === `edit`) {
         try {
-            const company = await Company.findOne({ _id: refId });
             company[target] = value;
             if (target === `company_name`) {
                 company.company_name_slug = slugify(value);
@@ -100,11 +101,48 @@ router.post('/update', async (req, res) => {
                 company.intermediary_slug = slugify(value);
             }
             await company.save();
-            res.json(company);
+            return res.json(company);
         } catch (err) {
             // todo:
             console.error(err);
         }
+    }
+
+    if (type === `changeStage`) {
+        const stageList = [
+            'applied',
+            'screened',
+            'interviewed',
+            'second_interviewed'
+        ];
+
+        try {
+            if (failed) {
+                company.stage = `failed`;
+                company.failed_on = Date.now();
+                company.note = value;
+                await company.save();
+                return res.json(company);
+            }
+
+            const idx = stageList.findIndex(c => c === company.stage);
+            if (idx > 3) {
+                return res
+                    .status(400)
+                    .json({ error: `this is the last status` });
+            } else {
+                company.stage = stageList[idx + 1];
+                company.note = value;
+                await company.save();
+                return res.json(company);
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    if (type === `inq`) {
+        console.log(value);
     }
 });
 
