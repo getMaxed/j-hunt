@@ -53,7 +53,10 @@ export default function Company({ company, isEven, openModal }) {
             <StyledTd width="120px">{firstInq}</StyledTd>
             <StyledTd width="120px">{lastInq}</StyledTd>
             <StyledTd
-                onClick={() => openModal(`inq`, { stage_inq_count, xRefs })}
+                onClick={() =>
+                    stage_inq_count < 3 &&
+                    openModal(`inq`, { stage_inq_count, xRefs })
+                }
             >
                 {stage_inq_count}
             </StyledTd>

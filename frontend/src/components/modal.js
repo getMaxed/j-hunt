@@ -15,7 +15,7 @@ export default function Modal({
     const [failed, setFailed] = React.useState(false);
     const textLabel =
         target === `company_name` ? `a Company name` : `an Intermediary name`;
-    const nextStage = 4 > stageList.indexOf(v);
+    const nextStage = 3 > stageList.indexOf(v);
     const textareaLabel =
         type === `inq`
             ? `Making new inquiry`
@@ -27,8 +27,6 @@ export default function Modal({
         e.preventDefault();
         updateCompany({ refId, type, target, value, failed: isFailed });
     }
-
-    // type === `inq` || type === `changeStage` && setValue
 
     return (
         <StyledModal>

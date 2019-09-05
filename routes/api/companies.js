@@ -65,6 +65,8 @@ router.post('/add', async (req, res) => {
     const company_name_slug = slugify(company_name);
     const intermediary_slug = slugify(intermediary);
 
+    // const company = await Company.findOne({ _id: userId });
+
     try {
         const company = await new Company({
             user: userId,
@@ -132,6 +134,7 @@ router.post('/update', async (req, res) => {
                     .json({ error: `this is the last status` });
             } else {
                 company.stage = stageList[idx + 1];
+                company.last_inq_on = Date.now();
                 company.note = value;
                 await company.save();
                 return res.json(company);
@@ -142,7 +145,11 @@ router.post('/update', async (req, res) => {
     }
 
     if (type === `inq`) {
-        console.log(value);
+        company.stage_inq_count++;
+        company.last_inq_on = Date.now();
+        company.note = value;
+        await company.save();
+        return res.json(company);
     }
 });
 
