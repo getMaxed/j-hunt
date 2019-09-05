@@ -42,11 +42,9 @@ export const SuggestionList = styled.ul`
     padding: 0;
     margin-top: 10px;
     margin-bottom: 0;
-`;
-
-export const Suggestion = styled.li`
-    list-style: 'none';
-    color: ${props => (props.isFailed ? 'red' : '')};
+    &:hover {
+        cursor: pointer;
+    }
 `;
 
 export const DashboardTable = styled.table`

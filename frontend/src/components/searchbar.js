@@ -1,6 +1,7 @@
 import React from 'react';
-import { slugify } from '../utils';
-import { SuggestionList, Suggestion } from './styled';
+import { slugify, formatTimeDistance as time } from '../utils';
+import { SuggestionList } from './styled';
+import Suggestion from './suggestion';
 
 export default function SearchBar({
     setAddingCompany,
@@ -40,13 +41,25 @@ export default function SearchBar({
         const companies = [activeCompanies, failedCompanies];
         return (
             <>
-                {companies[+isFailed].map(c => (
-                    <Suggestion key={Math.random()} isFailed={isFailed}>
-                        {c.company_name ? `(C): ${c.company_name};` : ''}
-                        &nbsp;
-                        {c.intermediary ? `(i): ${c.intermediary}` : ''}
-                    </Suggestion>
-                ))}
+                {companies[+isFailed].map(c => {
+                    const details = {};
+                    if (isFailed) {
+                        details.source = c.source;
+                        details.note = c.note;
+                        details.failed_on = time(c.failed_on);
+                        details.first_inq_on = time(c.first_inq_on);
+                    }
+
+                    return (
+                        <Suggestion
+                            key={Math.random()}
+                            isFailed={isFailed}
+                            companyName={c.company_name}
+                            intermName={c.intermediary}
+                            details={details}
+                        />
+                    );
+                })}
             </>
         );
     }
