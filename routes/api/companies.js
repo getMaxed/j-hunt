@@ -125,11 +125,11 @@ router.post('/update', async (req, res) => {
                 return res.json(company);
             }
 
-            const idx = stageList.findIndex(c => c === company.stage);
-            if (idx > 3) {
+            const idx = stageList.findIndex(s => s === company.stage);
+            if (idx >= 3) {
                 return res
                     .status(400)
-                    .json({ error: `this is the last status` });
+                    .json({ error: `no more stages available` });
             } else {
                 company.stage = stageList[idx + 1];
                 company.last_inq_on = Date.now();

@@ -92,5 +92,10 @@ export const updateCompany = data => async dispatch => {
         dispatch(setAlert(`success`, `company updated successfully`));
     } catch (err) {
         console.error(err);
+        dispatch(closeModal());
+        const error = err.response && err.response.data.error;
+        if (error) {
+            dispatch(setAlert(`failure`, error));
+        }
     }
 };

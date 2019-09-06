@@ -8,7 +8,7 @@ import {
 import { openModal, closeModal } from '../actions/modal';
 import CompanyForm from './companyForm';
 import Company from './company';
-import Modal from './modal';
+import Modal from './modal/';
 import SearchBar from './searchbar';
 import {
     DashboardTable as StyledTable,
