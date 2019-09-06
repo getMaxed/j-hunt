@@ -14,7 +14,7 @@ export const Modal = styled.div`
 
     form {
         position: absolute;
-        top: 20%;
+        top: 25%;
         left: 30%;
         transform: translate(-50%, -50%);
         background-color: white;

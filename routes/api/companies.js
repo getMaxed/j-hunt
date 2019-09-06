@@ -132,6 +132,7 @@ router.post('/update', async (req, res) => {
                     .json({ error: `no more stages available` });
             } else {
                 company.stage = stageList[idx + 1];
+                company.stage_inq_count = 0;
                 company.last_inq_on = Date.now();
                 company.note = value;
                 await company.save();
