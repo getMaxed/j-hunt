@@ -4,16 +4,13 @@ import {
     setAddingCompany,
     addCompany,
     updateCompany
-} from '../actions/company';
-import { openModal, closeModal } from '../actions/modal';
-import CompanyForm from './companyForm';
-import Company from './company';
-import Modal from './modal/';
-import SearchBar from './searchbar';
-import {
-    DashboardTable as StyledTable,
-    DashboardTh as StyledTh
-} from './styled';
+} from '../../actions/company';
+import { openModal, closeModal } from '../../actions/modal';
+import Form from './company/add';
+import Company from './company/';
+import Modal from './../modal/';
+import SearchBar from './searchbar/';
+import { Table, Th } from './x_style';
 
 const Dashboard = ({
     activeCompanies,
@@ -34,7 +31,7 @@ const Dashboard = ({
     return (
         <>
             {addingCompany ? (
-                <CompanyForm
+                <Form
                     setAddingCompany={setAddingCompany}
                     addingCompany={addingCompany}
                     addCompany={addCompany}
@@ -47,17 +44,17 @@ const Dashboard = ({
                 />
             )}
             {!addingCompany && activeCompanies.length > 0 && (
-                <StyledTable>
+                <Table>
                     <thead>
                         <tr>
-                            <StyledTh>Company</StyledTh>
-                            <StyledTh>Intermediary</StyledTh>
-                            <StyledTh>Source</StyledTh>
-                            <StyledTh>Stage</StyledTh>
-                            <StyledTh>Note</StyledTh>
-                            <StyledTh>First Inquiry</StyledTh>
-                            <StyledTh>Latest Inquiry</StyledTh>
-                            <StyledTh>Inq</StyledTh>
+                            <Th>Company</Th>
+                            <Th>Intermediary</Th>
+                            <Th>Source</Th>
+                            <Th>Stage</Th>
+                            <Th>Note</Th>
+                            <Th>First Inquiry</Th>
+                            <Th>Latest Inquiry</Th>
+                            <Th>Inq</Th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,7 +67,7 @@ const Dashboard = ({
                             />
                         ))}
                     </tbody>
-                </StyledTable>
+                </Table>
             )}
             {isModalOpen && (
                 <Modal

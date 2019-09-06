@@ -1,6 +1,6 @@
 import React from 'react';
-import { formatTimeDistance } from '../utils';
-import { CompanyTd as StyledTd, CompanyTr as StyledTr } from './styled';
+import { formatTimeDistance } from '../../../utils';
+import { Td, Tr } from './x_style';
 
 export default function Company({ company, isEven, openModal }) {
     const {
@@ -22,44 +22,44 @@ export default function Company({ company, isEven, openModal }) {
     const goto = url => window.open(url, '_blank');
 
     return (
-        <StyledTr isEven={isEven}>
-            <StyledTd
+        <Tr isEven={isEven}>
+            <Td
                 onClick={() => openModal(`edit`, { company_name, xRefs })}
                 width="170px"
             >
                 {company_name}
-            </StyledTd>
-            <StyledTd
+            </Td>
+            <Td
                 width="170px"
                 onClick={() => openModal(`edit`, { intermediary, xRefs })}
             >
                 {intermediary}
-            </StyledTd>
-            <StyledTd width="80px" onClick={() => goto(link)}>
+            </Td>
+            <Td width="80px" onClick={() => goto(link)}>
                 {source}
-            </StyledTd>
-            <StyledTd
+            </Td>
+            <Td
                 width="80px"
                 onClick={() => openModal(`changeStage`, { stage, xRefs })}
             >
                 {stage}
-            </StyledTd>
-            <StyledTd
+            </Td>
+            <Td
                 width="230px"
                 onClick={() => openModal(`edit`, { note, xRefs })}
             >
                 {note}
-            </StyledTd>
-            <StyledTd width="120px">{firstInq}</StyledTd>
-            <StyledTd width="120px">{lastInq}</StyledTd>
-            <StyledTd
+            </Td>
+            <Td width="120px">{firstInq}</Td>
+            <Td width="120px">{lastInq}</Td>
+            <Td
                 onClick={() =>
                     stage_inq_count < 3 &&
                     openModal(`inq`, { stage_inq_count, xRefs })
                 }
             >
                 {stage_inq_count}
-            </StyledTd>
-        </StyledTr>
+            </Td>
+        </Tr>
     );
 }

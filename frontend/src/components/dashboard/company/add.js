@@ -1,10 +1,6 @@
 import React from 'react';
 
-export default function CompanyForm({
-    addingCompany,
-    addCompany,
-    setAddingCompany
-}) {
+export default function Add({ addingCompany, addCompany, setAddingCompany }) {
     const { name, isIntermediary } = addingCompany;
     const emptyInput = {
         company_name: isIntermediary ? '' : name,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { getAlertColor } from '../utils';
-import { Alert as StyledAlert } from './styled';
+import { Alert as StyledAlert } from './x_style';
 
 const Alert = ({ type, msg }) => (
     <StyledAlert color={getAlertColor(type)}>{msg}</StyledAlert>

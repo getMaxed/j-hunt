@@ -1,7 +1,7 @@
 import React from 'react';
-import { slugify, formatTimeDistance as time } from '../utils';
-import { SuggestionList } from './styled';
+import { slugify, formatTimeDistance as time } from '../../../utils';
 import Suggestion from './suggestion';
+import { Ul } from './x_style';
 
 export default function SearchBar({
     setAddingCompany,
@@ -75,10 +75,10 @@ export default function SearchBar({
                 onChange={e => handleInputChange(e)}
             />
             {suggestions && (
-                <SuggestionList>
+                <Ul>
                     {suggestActive && renderCompanies()}
                     {suggestFailed && renderCompanies(true)}
-                </SuggestionList>
+                </Ul>
             )}
             <br />
             <label htmlFor="intermediary">Check if intermediary</label>

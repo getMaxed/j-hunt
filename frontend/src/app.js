@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider, connect } from 'react-redux';
 import { loadUser } from './actions/auth';
 import store from './store';
-import AuthForm from './components/authForm';
+import Auth from './components/auth';
 import Alert from './components/alert';
 import Logout from './components/logout';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/dashboard/';
 
 let App = ({ isAuthenticated, isAlert }) => {
     React.useEffect(() => {
@@ -23,7 +23,7 @@ let App = ({ isAuthenticated, isAlert }) => {
             ) : (
                 <>
                     {isAlert && <Alert />}
-                    <AuthForm />
+                    <Auth />
                 </>
             )}
         </>

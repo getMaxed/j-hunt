@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal as StyledModal } from '../styled';
+import { Modal as StyledModal } from './x_style';
 import { stageList } from '../../utils';
 import Note from './note';
 import Name from './name';
