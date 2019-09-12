@@ -1,6 +1,6 @@
 exports.slugify = str =>
     require('slugify')(str, {
-        remove: /[*+~.()'"!:$@#]/g,
+        remove: /[*+~.()'"!:$@#,]/g,
         lower: true
     });
 
@@ -18,3 +18,8 @@ exports.formatDate = d => {
         return new Date(date).getTime();
     }
 };
+
+exports.addZero = n => (n < 10 ? 0 + n.toString() : n);
+exports.maybe = (prob = 2) => (Math.floor(Math.random() * prob) ? true : false);
+exports.randNum = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1)) + min;
