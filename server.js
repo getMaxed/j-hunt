@@ -1,4 +1,4 @@
-// require('./seeds')(`5d69738cb369ee1398c020fd`, 70);
+// require('./seeds')(`5d69738cb369ee1398c020fd`, 70, true);
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');

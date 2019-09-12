@@ -4,6 +4,7 @@ import { Td, Tr } from './x_style';
 
 export default function Company({ company, isEven, openModal }) {
     const {
+        _id,
         company_name,
         intermediary,
         link,
@@ -24,14 +25,14 @@ export default function Company({ company, isEven, openModal }) {
     return (
         <Tr isEven={isEven}>
             <Td
-                onClick={() => openModal(`edit`, { company_name, xRefs })}
+                onClick={() => openModal(`edit`, { company_name, xRefs }, _id)}
                 width="170px"
             >
                 {company_name}
             </Td>
             <Td
                 width="170px"
-                onClick={() => openModal(`edit`, { intermediary, xRefs })}
+                onClick={() => openModal(`edit`, { intermediary, xRefs }, _id)}
             >
                 {intermediary}
             </Td>
@@ -40,13 +41,13 @@ export default function Company({ company, isEven, openModal }) {
             </Td>
             <Td
                 width="80px"
-                onClick={() => openModal(`changeStage`, { stage, xRefs })}
+                onClick={() => openModal(`changeStage`, { stage, xRefs }, _id)}
             >
                 {stage}
             </Td>
             <Td
                 width="230px"
-                onClick={() => openModal(`edit`, { note, xRefs })}
+                onClick={() => openModal(`edit`, { note, xRefs }, _id)}
             >
                 {note}
             </Td>
@@ -55,7 +56,7 @@ export default function Company({ company, isEven, openModal }) {
             <Td
                 onClick={() =>
                     stage_inq_count < 3 &&
-                    openModal(`inq`, { stage_inq_count, xRefs })
+                    openModal(`inq`, { stage_inq_count, xRefs }, _id)
                 }
             >
                 {stage_inq_count}
