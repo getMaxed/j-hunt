@@ -63,11 +63,8 @@ export const addCompany = companyData => async (dispatch, getState) => {
         const getCompany = idx => Object.entries(getState().company)[idx][1];
         return [...getCompany(0), ...getCompany(1)].some(
             c =>
-                (companyData.company_name &&
-                    c.company_name_slug ===
-                        slugify(companyData.company_name)) ||
-                (companyData.intermediary &&
-                    c.intermediary_slug === slugify(companyData.intermediary))
+                companyData.company_name &&
+                c.company_name_slug === slugify(companyData.company_name)
         );
     }
 };
