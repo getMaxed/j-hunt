@@ -33,7 +33,7 @@ export default function Suggestion({
             ) : (
                 ''
             )}
-            {companyName && <span>, &nbsp;</span>}
+            {companyName && intermName && <span>, &nbsp;</span>}
             {intermName ? (
                 <span>
                     <i

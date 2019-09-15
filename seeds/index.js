@@ -1,10 +1,11 @@
 const faker = require('faker');
 const Company = require('../models/Company');
-const seed = require('../config/db_seed');
+const mainSeed = require('../config/db_seed');
 const { slugify, maybe, randNum, addZero, formatDate } = require('../utils');
 
-module.exports = async (id, n, mainSeed = false) => {
-    mainSeed && seed(id);
+module.exports = async (id, n, needMainSeed = false) => {
+    needMainSeed && mainSeed(id);
+    if (!n) return;
 
     const sourceList = ['linkedin', 'indeed', 'angel', 'glassdoor', 'monster'];
     const stageList = [
